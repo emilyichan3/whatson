@@ -2,6 +2,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    {% if user.is_organizer %}
+        <p>Please click <a href="{{ url_for('create_group') }}">here</a> to create your own group!</p>
+    {% endif %}
     <ul>
         {% for group in groups %}
             <li><a href="{{ url_for('post_list', group_id=group.group_id) }}">{{ group.group_name }}</a></li>

@@ -48,7 +48,7 @@ def login_action():
 
 @app.route("/")
 def index():
-    return render_template("index.html", groups=Group.query.all())
+    return render_template("index.html", groups=Group.query.all(), user=current_user)
 
 
 @app.route("/user/<int:user_id>")
@@ -109,8 +109,8 @@ def posts_by_group(group_id):
     return render_template("post_list_group.html", posts=posts)
 
 
-
 @app.route('/add_post/<int:group_id>', methods=['GET', 'POST'])
+@login_required
 def add_post(group_id):
     group = Group.query.get_or_404(group_id)
     if request.method == 'POST':
@@ -123,6 +123,20 @@ def add_post(group_id):
         return redirect(url_for('post_list',  group_id=group_id))
     
     return render_template('create_post.html', group=group)
+
+@app.route('/create_group', methods=['GET', 'POST'])
+@login_required
+def create_group():
+    if request.method == 'POST':
+        group_name = request.form['group_name']
+        description = request.form['description']
+        db.session.add(Group(group_name=group_name, 
+                             description=description, 
+                             create_user=current_user))
+        db.session.commit()
+        return redirect(url_for('index'))
+
+    return render_template('create_group.html')
 
 
 if __name__ == "__main__":
