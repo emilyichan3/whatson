@@ -2,8 +2,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    {% if current_user.is_authenticated %}
-    <p>Please click <a href="{{ url_for('add_post', group_id=group.group_id) }}">here</a> to add the post!</p>
+    {% if user.is_organizer %}
+        <p>Please click <a href="{{ url_for('add_post', group_id=group.group_id) }}">here</a> to add the post!</p>
     {% endif %}
     <table>
         <thead>

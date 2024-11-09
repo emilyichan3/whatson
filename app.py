@@ -98,7 +98,7 @@ def logout_action():
 @app.route("/group_posts/<int:group_id>", methods=['GET'])
 def post_list(group_id):
     group = Group.query.get_or_404(group_id)
-    return render_template("post_list.html", group=group)
+    return render_template("post_list.html", group=group, user=current_user)
 
 
 @app.route("/posts_by_group/<int:group_id>", methods=['GET'])
