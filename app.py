@@ -6,6 +6,7 @@ from flask_login import LoginManager, login_user, logout_user, login_required, c
 
 from models import User, Group, Post, db
 
+from sqlalchemy.sql import text
 
 app = Flask(__name__)
 app.config.from_object('config')  # Load configuration from config.py
@@ -46,7 +47,6 @@ def login_action():
 
 
 @app.route("/")
-@login_required
 def index():
     return render_template("index.html", groups=Group.query.all())
 
@@ -95,12 +95,34 @@ def logout_action():
     return redirect(url_for("index"))
 
 
-@app.route("/group/<int:group_id>", methods=['GET'])
-@login_required
-def group(group_id):
+@app.route("/group_posts/<int:group_id>", methods=['GET'])
+def post_list(group_id):
     group = Group.query.get_or_404(group_id)
-    print(f"rendering the group page for {group}")
-    return render_template("group.html", group=group)
+    return render_template("post_list.html", group=group)
+
+
+@app.route("/posts_by_group/<int:group_id>", methods=['GET'])
+def posts_by_group(group_id):
+    posts = Post.query.from_statement(
+        text("SELECT * FROM posts WHERE group_id = :group_id order by date_fm desc")
+    ).params(group_id=group_id).all()
+    return render_template("post_list_group.html", posts=posts)
+
+
+
+@app.route('/add_post/<int:group_id>', methods=['GET', 'POST'])
+def add_post(group_id):
+    group = Group.query.get_or_404(group_id)
+    if request.method == 'POST':
+        title = request.form['title']
+        context = request.form['context']
+        due_date = datetime.now(timezone.utc) + timedelta(days=10)
+        db.session.add(Post(title=title, context=context, date_to=due_date,
+                        group=group, editor=current_user ))
+        db.session.commit()
+        return redirect(url_for('post_list',  group_id=group_id))
+    
+    return render_template('create_post.html', group=group)
 
 
 if __name__ == "__main__":

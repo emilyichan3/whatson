@@ -38,7 +38,10 @@ class Group(db.Model):
 
     def __repr__(self):
         return f'"Group <group_name={self.group_name}, is_active= {self.is_active}, create_at ({self.created_at:%Y-%m-%d}>)'
-    
+
+    def get_id(self):
+        """A loader method for flask_login"""
+        return str(self.group_id)
 
 class Post(db.Model):
     __tablename__ = "posts"  # The name of the table in the DB

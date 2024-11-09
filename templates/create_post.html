@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Add a new post</h2>
+  <form action="{{ url_for('add_post', group_id=group.group_id) }}" method="POST">
+    <label>Group: {{ group.group_name }} </label>
+    <label>title:
+        <input type="text" name="title">
+    </label>
+    <label>context:
+        <input type="text" name="context">
+    </label>
+    <button type="submit">Add Post</button>
+  </form>
+{% endblock %}
