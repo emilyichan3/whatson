@@ -5,10 +5,33 @@
     {% if user.is_organizer %}
         <p>Please click <a href="{{ url_for('create_group') }}">here</a> to create your own group!</p>
     {% endif %}
-    <ul>
+    <!-- <ul>
         {% for group in groups %}
             <li><a href="{{ url_for('post_list', group_id=group.group_id) }}">{{ group.group_name }}</a></li>
             <li><a href="{{ url_for('posts_by_group', group_id=group.group_id) }}">{{ group.group_name }}</a></li>
         {% endfor %}
-    </ul>
+    </ul> -->
+
+    {% for group in groups %}
+    <div>
+        <form action="{{ url_for('edit_group', group_id=group.group_id) }}">
+            <table>
+                <tbody>
+                    <tr>
+                        <td><a href="{{ url_for('post_list', group_id=group.group_id) }}">{{ group.group_name }}</a></td>
+                    </tr>
+                    <tr>
+                        <td>{{ group.description }}</td>
+                    </tr>
+                    {% if user.is_organizer %}
+                    <tr>
+                        <td><button type="submit" id="modifyGroupButton">Edit</button></td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </form>
+    </div>
+    {% endfor %}
+
 {% endblock %}

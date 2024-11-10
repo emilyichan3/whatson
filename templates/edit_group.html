@@ -1,0 +1,13 @@
+{% set title = group.group_name %}
+
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Modify a group</h2>
+    <form method="POST">
+      <label>Description:
+          <input type="text" name="group_description" value="{{ group.description }}"  required>
+      </label>
+      <button type="submit">Update</button>
+    </form>
+
+{% endblock %}

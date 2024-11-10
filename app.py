@@ -145,6 +145,17 @@ def create_group():
 
     return render_template('create_group.html')
 
+@app.route('/edit_group/<int:group_id>',  methods=['GET', 'POST'])
+@login_required
+def edit_group(group_id):
+    group = Group.query.get_or_404(group_id)
+    if request.method == 'POST':
+        print(group.description)
+        group.description = request.form['group_description']
+        db.session.commit()    
+        return redirect(url_for('index'))
+    
+    return render_template('edit_group.html', group=group)
 
 if __name__ == "__main__":
     app.run(debug=True, port=8000)
