@@ -23,7 +23,7 @@
                     <tr>
                         <td>{{ group.description }}</td>
                     </tr>
-                    {% if user.is_organizer %}
+                    {% if user == group.create_user %}
                     <tr>
                         <td><button type="submit" id="modifyGroupButton">Edit</button></td>
                     </tr>
