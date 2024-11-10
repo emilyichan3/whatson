@@ -6,5 +6,5 @@ import os
 SECRET_KEY = os.getenv('SECRET_KEY', 'not-set')
 
 # When deploying, set in the environment to the PostgreSQL URL
-# SQLALCHEMY_DATABASE_URI = os.getenv('LOCAL_DATABASE_URL', 'sqlite:///db.sqlite3')
-SQLALCHEMY_DATABASE_URI = "postgresql://ucdtestdatabase_user:LILVLDIhZcSObq1Yd5ZK8sBKUl2pqRYN@dpg-cs8mj088fa8c73cf2cp0-a.oregon-postgres.render.com/ucdtestdatabase"
+SQLALCHEMY_DATABASE_URI = os.getenv('LOCAL_DATABASE_URL', 'sqlite:///db.sqlite3')
+# SQLALCHEMY_DATABASE_URI = "postgresql://ucdtestdatabase_user:LILVLDIhZcSObq1Yd5ZK8sBKUl2pqRYN@dpg-cs8mj088fa8c73cf2cp0-a.oregon-postgres.render.com/ucdtestdatabase"

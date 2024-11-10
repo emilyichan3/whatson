@@ -1,4 +1,5 @@
-** Rename **
-Only the organizer can create a group and add a post 
 showing the post order by date - raw sql
+Modify the group - only for creater
+Modify the post - only for group creater and the person who post
+
 

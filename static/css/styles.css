@@ -178,6 +178,9 @@ body {
     background-color: #a13b45;
   }
   
+  .hidden {
+    display: none;
+  }
   /* Responsive Styles */
   
   @media (max-width: 768px) {

@@ -116,13 +116,20 @@ def add_post(group_id):
     if request.method == 'POST':
         title = request.form['title']
         context = request.form['context']
-        due_date = datetime.now(timezone.utc) + timedelta(days=10)
-        db.session.add(Post(title=title, context=context, date_to=due_date,
-                        group=group, editor=current_user ))
+        date_from = datetime.strptime(request.form['date_from'], '%Y-%m-%d')
+        due_date = datetime.strptime(request.form['date_to'], '%Y-%m-%d')
+        # due_date = datetime.now(timezone.utc) + timedelta(days=10)
+        db.session.add(Post(title=title, 
+                            context=context, 
+                            date_fm=date_from, 
+                            date_to=due_date,
+                            group=group, 
+                            editor=current_user ))
         db.session.commit()
         return redirect(url_for('post_list',  group_id=group_id))
     
-    return render_template('create_post.html', group=group)
+    formatted_date = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S")
+    return render_template('create_post.html', group=group, default_date=formatted_date)
 
 @app.route('/create_group', methods=['GET', 'POST'])
 @login_required
