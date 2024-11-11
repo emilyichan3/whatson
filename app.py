@@ -98,7 +98,7 @@ def logout_action():
 @app.route("/group_posts/<int:group_id>", methods=['GET'])
 def post_list(group_id):
     group = Group.query.get_or_404(group_id)
-    return render_template("post_list.html", group=group, user=current_user)
+    return render_template("post_list.html", action='view', group=group, user=current_user)
 
 
 @app.route("/posts_by_group/<int:group_id>", methods=['GET'])
@@ -129,7 +129,24 @@ def add_post(group_id):
         return redirect(url_for('post_list',  group_id=group_id))
     
     formatted_date = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S")
-    return render_template('create_post.html', group=group, default_date=formatted_date)
+    return render_template('post.html', action='add', group=group, default_date=formatted_date)
+
+
+@app.route('/edit_post/<int:post_id>', methods=['GET', 'POST'])
+@login_required
+def edit_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    if request.method == 'POST':
+        group_id = post.group_id
+        post.title = request.form['title']
+        post.context = request.form['context']
+        post.date_fm = datetime.strptime(request.form['date_from'], '%Y-%m-%d')
+        post.date_to = datetime.strptime(request.form['date_to'], '%Y-%m-%d')
+        db.session.commit()
+        return redirect(url_for('post_list',  group_id=group_id))
+    
+    formatted_date = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S")
+    return render_template('post.html', action='edit',post=post,default_date=formatted_date)
 
 @app.route('/create_group', methods=['GET', 'POST'])
 @login_required

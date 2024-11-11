@@ -5,23 +5,30 @@
     {% if user.is_organizer %}
         <p>Please click <a href="{{ url_for('add_post', group_id=group.group_id) }}">here</a> to add the post!</p>
     {% endif %}
+
     <table>
         <thead>
             <tr>
                 <th>Editor</th>
                 <th>Title</th>
+                <th>Context</th>
                 <th>From</th>
                 <th>To</th>
+                <td></td>
             </tr>
         </thead>
         <tbody>
             {% for post in group.posts %}
-            <tr>
-                <td>{{ post.editor.username }}</td>
-                <td>{{ post.title }}</td>
-                <td>{{ post.date_fm.strftime('%Y-%m-%d') }}</td>
-                <td>{{ post.date_to.strftime('%Y-%m-%d') }}</td>
-            </tr>
+            <form action="{{ url_for('edit_post', post_id=post.post_id) }}">
+                <tr>
+                    <td>{{ post.editor.username }}</td>
+                    <td>{{ post.title }}</td>
+                    <td>{{ post.context }}</td>
+                    <td>{{ post.date_fm.strftime('%Y-%m-%d') }}</td>
+                    <td>{{ post.date_to.strftime('%Y-%m-%d') }}</td>
+                    <td><button type="submit" id="modifyGroupButton">Edit</button></td>
+                </tr>
+            </form>
             {% endfor %}
         </tbody>
     </table>
