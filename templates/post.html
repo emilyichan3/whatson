@@ -8,7 +8,7 @@
 <p class="hidden" id="action">{{ action }}</p>
   {% if action == "add" %}
   <h2>Add a new post</h2>
-  <form action="{{ url_for('add_post', group_id=group.group_id) }}" method="POST">
+  <form id="addPostForm" action="{{ url_for('add_post', group_id=group.group_id) }}" method="POST">
     <label>Group: {{ group.group_name }} </label>
     <label>title:
         <input type="text" name="title" required>
@@ -23,11 +23,11 @@
   <label>To:
     <input type="date" name="date_to" id="date_to" required>
   </label>
-    <button type="submit">Add</button>
+    <button type="submit" id="addPostButton">Add</button>
   </form>
   {% else %}
   <h2>Edit a post</h2>
-  <form action="{{ url_for('edit_post', post_id=post.post_id) }}" method="POST">
+  <form id="editPostForm" action="{{ url_for('edit_post', post_id=post.post_id) }}" method="POST">
     <label>title:
         <input type="text" name="title" value="{{ post.title }}" required >
     </label>
@@ -42,7 +42,7 @@
   <label>To:
     <input type="date" name="date_to" id="target_date_to" required>
   </label>
-    <button type="submit">Save</button>
+    <button type="submit" id="editPostButton">Save</button>
   </form>
   {% endif %}
 

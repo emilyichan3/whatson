@@ -14,7 +14,7 @@
                 <th>Context</th>
                 <th>From</th>
                 <th>To</th>
-                <td></td>
+                <td span="2"></td>
             </tr>
         </thead>
         <tbody>
@@ -26,7 +26,10 @@
                     <td>{{ post.context }}</td>
                     <td>{{ post.date_fm.strftime('%Y-%m-%d') }}</td>
                     <td>{{ post.date_to.strftime('%Y-%m-%d') }}</td>
-                    <td><button type="submit" id="modifyGroupButton">Edit</button></td>
+                    {% if user == post.editor or user == group.create_user %}
+                        <td><button type="submit" id="editButton">Edit</button></td>
+                        <td><button id="deleteButton">Delete</button></td>
+                    {% endif %}
                 </tr>
             </form>
             {% endfor %}
