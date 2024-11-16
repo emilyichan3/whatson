@@ -202,6 +202,16 @@ def edit_post(post_id):
     # Render the form with default data for GET requests
     return render_template('post.html', action='edit',post=post,default_date=formatted_date)
 
+@app.route('/delete_post/<int:post_id>', methods=['GET', 'POST'])
+@login_required
+def delete_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    if request.method == 'POST':
+        db.session.delete(post)
+        db.session.commit()
+        return redirect(url_for('post_list',  group_id=post.group_id)) 
+    return render_template('delete_post.html', post=post)
+
 @app.route('/create_group', methods=['GET', 'POST'])
 @login_required
 def create_group():

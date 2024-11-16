@@ -4,7 +4,7 @@ function init(){
         const form = document.getElementById('addPostForm');
         // create a post
         let default_formattedDate = document.getElementById('default_date').innerText;
-        let date_from = document.getElementById('date_fm');
+        let date_from = document.getElementById('date_from');
         let date_to = document.getElementById('date_to');
         date_from = formattedDate(default_formattedDate);
         date_to = formattedDate(default_formattedDate);
@@ -51,7 +51,7 @@ function formattedDate(targetDate){
 }
 
 function addPost(){
-    let date_fm = document.getElementById('date_fm').value;
+    let date_fm = document.getElementById('date_from').value;
     let date_to = document.getElementById('date_to').value;
     if (isStartDateEarlierEndDate(date_fm, date_to)) {
         return true;
