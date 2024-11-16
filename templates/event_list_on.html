@@ -4,7 +4,7 @@
     <table>
         <thead>
             <tr>
-                <th>Editor</th>
+                <th>Group</th>
                 <th>Title</th>
                 <th>From</th>
                 <th>To</th>
@@ -13,6 +13,7 @@
         <tbody>
             {% for event in events %}
             <tr>
+                <td>{{ event.group.group_name }}</td>
                 <td>{{ event.title }}</td>
                 <td>{{ event.date_fm.strftime('%Y-%m-%d') }}</td>
                 <td>{{ event.date_to.strftime('%Y-%m-%d') }}</td>

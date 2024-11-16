@@ -97,19 +97,24 @@ def event_list(group_id):
     return render_template("event_list.html", action='view', group=group, user=current_user)
 
 
-@app.route("/find_event/<int:group_id>", methods=['GET'])
-def events_by_group(group_id):
+@app.route("/events_on", methods=['GET'])
+def events_on():
+    formatted_today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    # events = Event.query.from_statement(
+    #     text("SELECT * FROM events WHERE group_id = :group_id order by date_fm desc")
+    # ).params(group_id=group_id).all()
     events = Event.query.from_statement(
-        text("SELECT * FROM events WHERE group_id = :group_id order by date_fm desc")
-    ).params(group_id=group_id).all()
-    return render_template("event_list_group.html", events=events)
+        text("SELECT * FROM events WHERE date_fm = :start_date order by date_fm desc")
+    ).params(start_date=formatted_today).all()
+
+    return render_template("event_list_on.html", events=events)
 
 
 @app.route('/add_event/<int:group_id>', methods=['GET', 'POST'])
 @login_required
 def add_event(group_id):
     group = Group.query.get_or_404(group_id)
-    formatted_date = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S")
+    formatted_date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     if request.method == 'POST':
         try:
             title = request.form['title']
@@ -161,7 +166,8 @@ def add_event(group_id):
 @login_required
 def edit_event(event_id):
     event = Event.query.get_or_404(event_id)
-    formatted_date = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S")
+    # formatted_date = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S")
+    formatted_date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     if request.method == 'POST':
         try:
             group_id = event.group_id

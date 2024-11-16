@@ -18,6 +18,7 @@
         <nav class="navbar">
             <ul>
                 <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('events_on') }}">Events on today</a></li>
                 {% if current_user.is_authenticated %}
                   <li><a href="{{ url_for('logout_page') }}">Logout</a></li>
                 {% else %}

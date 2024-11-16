@@ -1,7 +1,7 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import text
+from sqlalchemy import text, Date
 
 db = SQLAlchemy()
 
@@ -47,8 +47,8 @@ class Event(db.Model):
     event_id = db.mapped_column(db.Integer, primary_key=True)
     title = db.mapped_column(db.String(250), nullable=False)
     context = db.mapped_column(db.String(500), nullable=False)
-    date_fm = db.mapped_column(db.DateTime, default=datetime.utcnow)
-    date_to = db.mapped_column(db.DateTime, nullable=False)
+    date_fm = db.mapped_column(db.Date, default=datetime.utcnow().date)
+    date_to = db.mapped_column(db.Date, nullable=False)
     created_at = db.mapped_column(db.DateTime, default=datetime.utcnow)
     group_id = db.mapped_column(db.Integer, db.ForeignKey("groups.group_id"), nullable=False)
     editor_id = db.mapped_column(db.Integer, db.ForeignKey("users.user_id"), nullable=False)
