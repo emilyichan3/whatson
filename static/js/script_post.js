@@ -6,14 +6,14 @@ function init(){
         let default_formattedDate = document.getElementById('default_date').innerText;
         let date_from = document.getElementById('date_fm');
         let date_to = document.getElementById('date_to');
-        date_from.value = formattedDate(default_formattedDate);
-        date_to.value = formattedDate(default_formattedDate);
+        date_from = formattedDate(default_formattedDate);
+        date_to = formattedDate(default_formattedDate);
         form.addEventListener('submit', function(event) {
             event.preventDefault();
             if (addPost()) {
                 form.submit();
             } else {
-                alert("An date error has occurred.");
+                alert("End date should not be earlier than the start date.");
             }
         })
 
@@ -32,7 +32,7 @@ function init(){
             if (editPost()) {
                 form.submit();
             } else {
-                alert("An date error has occurred.");
+                alert("End date should not be earlier than the start date.");
             }
         })
     }
@@ -53,7 +53,7 @@ function formattedDate(targetDate){
 function addPost(){
     let date_fm = document.getElementById('date_fm').value;
     let date_to = document.getElementById('date_to').value;
-    if (isDateFormEarlier(date_fm, date_to)) {
+    if (isStartDateEarlierEndDate(date_fm, date_to)) {
         return true;
         // Place any additional code you want to execute when date_from is NOT earlier than date_to here.
       } else {
@@ -66,7 +66,7 @@ function editPost() {
     let date_fm = document.getElementById('target_date_fm').value;
     let date_to = document.getElementById('target_date_to').value;
     // Compare the date from with the date to
-    if (isDateFormEarlier(date_fm, date_to)) {
+    if (isStartDateEarlierEndDate(date_fm, date_to)) {
         return true;
         // Place any additional code you want to execute when date_from is NOT earlier than date_to here.
     } else {
@@ -75,7 +75,7 @@ function editPost() {
     }
 }
 
-function isDateFormEarlier(dateFrom, dateTo) {
+function isStartDateEarlierEndDate(dateFrom, dateTo) {
     const dateFromObj = new Date(dateFrom);
     const dateToObj = new Date(dateTo);
     console.log("isDateFormEarlier");
