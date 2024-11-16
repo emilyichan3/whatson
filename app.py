@@ -1,11 +1,7 @@
 from datetime import datetime, timedelta, timezone
-
 from flask import Flask, flash, render_template, redirect, request, url_for
-
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
-
 from models import User, Group, Post, db
-
 from sqlalchemy.sql import text
 
 app = Flask(__name__)
@@ -113,22 +109,51 @@ def posts_by_group(group_id):
 @login_required
 def add_post(group_id):
     group = Group.query.get_or_404(group_id)
-    if request.method == 'POST':
-        title = request.form['title']
-        context = request.form['context']
-        date_from = datetime.strptime(request.form['date_from'], '%Y-%m-%d')
-        due_date = datetime.strptime(request.form['date_to'], '%Y-%m-%d')
-        # due_date = datetime.now(timezone.utc) + timedelta(days=10)
-        db.session.add(Post(title=title, 
-                            context=context, 
-                            date_fm=date_from, 
-                            date_to=due_date,
-                            group=group, 
-                            editor=current_user ))
-        db.session.commit()
-        return redirect(url_for('post_list',  group_id=group_id))
-    
     formatted_date = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S")
+    if request.method == 'POST':
+        try:
+            title = request.form['title']
+            context = request.form['context']
+            date_from = datetime.strptime(request.form['date_from'], '%Y-%m-%d')
+            date_to = datetime.strptime(request.form['date_to'], '%Y-%m-%d')    
+             # Validate that the date from is not later than the date to
+            if is_date_from_earlier_date_to(date_from, date_to):
+                # Add the new post to the database
+                db.session.add(Post(title=title, 
+                                    context=context, 
+                                    date_fm=date_from, 
+                                    date_to=date_to,
+                                    group=group, 
+                                    editor=current_user ))
+                db.session.commit()
+                return redirect(url_for('post_list',  group_id=group_id))
+            else:
+                # Flash message and re-render the page with the entered data
+                flash("End date should not be earlier than the start date.", "error")
+                return render_template(
+                    'post.html',
+                    action='add',
+                    group=group,
+                    title=title,
+                    context=context,
+                    date_from=request.form['date_from'],
+                    date_to=request.form['date_to'],
+                    default_date=formatted_date
+                )
+        except ValueError:
+           # Flash an error message for invalid date input
+            flash("Invalid date format. Please use YYYY-MM-DD.", "error")
+            return render_template(
+                'post.html',
+                action='add',
+                group=group,
+                title=request.form.get('title', ''),
+                context=request.form.get('context', ''),
+                date_from=request.form.get('date_from', ''),
+                date_to=request.form.get('date_to', ''),
+                default_date=formatted_date
+            )
+    # Render the form with default data for GET requests
     return render_template('post.html', action='add', group=group, default_date=formatted_date)
 
 
@@ -136,16 +161,45 @@ def add_post(group_id):
 @login_required
 def edit_post(post_id):
     post = Post.query.get_or_404(post_id)
-    if request.method == 'POST':
-        group_id = post.group_id
-        post.title = request.form['title']
-        post.context = request.form['context']
-        post.date_fm = datetime.strptime(request.form['date_from'], '%Y-%m-%d')
-        post.date_to = datetime.strptime(request.form['date_to'], '%Y-%m-%d')
-        db.session.commit()
-        return redirect(url_for('post_list',  group_id=group_id))
-    
     formatted_date = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S")
+    if request.method == 'POST':
+        try:
+            group_id = post.group_id
+            post.title = request.form['title']
+            post.context = request.form['context']
+            post.date_fm = datetime.strptime(request.form['date_from'], '%Y-%m-%d')
+            post.date_to = datetime.strptime(request.form['date_to'], '%Y-%m-%d')
+            # Validate that the date from is not later than the date to
+            if is_date_from_earlier_date_to(post.date_fm, post.date_to):
+                db.session.commit()
+                return redirect(url_for('post_list',  group_id=group_id))
+            else:
+                # Flash message and re-render the page with the entered data
+                flash("End date should not be earlier than the start date.", "error")
+                return render_template(
+                    'post.html',
+                    action='edit',
+                    post=post,
+                    title=request.form.get('title', ''),
+                    context=request.form.get('context', ''),
+                    date_from=request.form.get('date_from', ''),
+                    date_to=request.form.get('date_to', ''),
+                    default_date=formatted_date
+                )
+        except ValueError:
+           # Flash an error message for invalid date input
+            flash("Invalid date format. Please use YYYY-MM-DD.", "error")
+            return render_template(
+                'post.html',
+                action='edit',
+                post=post,
+                title=request.form.get('title', ''),
+                context=request.form.get('context', ''),
+                date_from=request.form.get('date_from', ''),
+                date_to=request.form.get('date_to', ''),
+                default_date=formatted_date
+            )
+    # Render the form with default data for GET requests
     return render_template('post.html', action='edit',post=post,default_date=formatted_date)
 
 @app.route('/create_group', methods=['GET', 'POST'])
@@ -173,6 +227,10 @@ def edit_group(group_id):
         return redirect(url_for('index'))
     
     return render_template('edit_group.html', group=group)
+
+def is_date_from_earlier_date_to(date_from, date_to):
+    return date_from <= date_to
+
 
 if __name__ == "__main__":
     app.run(debug=True, port=8000)

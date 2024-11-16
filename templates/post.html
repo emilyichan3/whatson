@@ -7,43 +7,43 @@
 {% block content %}
 <p class="hidden" id="action">{{ action }}</p>
   {% if action == "add" %}
-  <h2>Add a new post</h2>
-  <form id="addPostForm" action="{{ url_for('add_post', group_id=group.group_id) }}" method="POST">
-    <label>Group: {{ group.group_name }} </label>
-    <label>title:
-        <input type="text" name="title" required>
-    </label>
-    <label>context:
-        <input type="text" name="context" required>
-    </label>
-    <p class="hidden" id="default_date">{{ default_date }}</p>
-    <label>From:
-      <input type="date" name="date_from" id="date_fm" required>
-  </label>
-  <label>To:
-    <input type="date" name="date_to" id="date_to" required>
-  </label>
-    <button type="submit" id="addPostButton">Add</button>
-  </form>
+    <h2>Add a new post</h2>
+    <form id="addPostForm" action="{{ url_for('add_post', group_id=group.group_id) }}" method="POST">
+      <label>Group: {{ group.group_name }} </label>
+      <label>title:
+          <input type="text" name="title" id="title" value="{{ title | default('') }}" required>
+      </label>
+      <label>context:
+          <textarea name="context" id="context" required>{{ context | default('') }}</textarea>
+      </label>
+      <p class="hidden" id="default_date">{{ default_date }}</p>
+      <label>From:
+        <input type="date" name="date_from" id="date_from" value="{{ date_from | default(default_date[:10]) }}" required>
+      </label>
+      <label>To:
+        <input type="date" name="date_to" id="date_to" value="{{ date_to | default(default_date[:10]) }}" required>
+      </label>
+      <button type="submit" id="addPostButton">Add</button>
+    </form>
   {% else %}
-  <h2>Edit a post</h2>
-  <form id="editPostForm" action="{{ url_for('edit_post', post_id=post.post_id) }}" method="POST">
-    <label>title:
-        <input type="text" name="title" value="{{ post.title }}" required >
-    </label>
-    <label>context:
-        <input type="text" name="context" value="{{ post.context }}" required>
-    </label>
-    <p class="hidden" id="edit_date_fm">{{ post.date_fm.strftime("%Y-%m-%dT%H:%M:%S") }}</p>
-    <p class="hidden" id="edit_date_to">{{ post.date_to.strftime("%Y-%m-%dT%H:%M:%S") }}</p>
-    <label>From:
-      <input type="date" name="date_from" id="target_date_fm" required>
-  </label>
-  <label>To:
-    <input type="date" name="date_to" id="target_date_to" required>
-  </label>
-    <button type="submit" id="editPostButton">Save</button>
-  </form>
+    <h2>Edit a post</h2>
+    <form id="editPostForm" action="{{ url_for('edit_post', post_id=post.post_id) }}" method="POST">
+      <label>title:
+          <input type="text" name="title" id="title" value="{{ post.title | default('') }}" required>
+      </label>
+      <label>context:
+          <textarea name="context" id="context" required>{{ post.context | default('') }}</textarea>
+      </label>
+      <p class="hidden" id="edit_date_fm">{{ post.date_fm.strftime("%Y-%m-%dT%H:%M:%S") }}</p>
+      <p class="hidden" id="edit_date_to">{{ post.date_to.strftime("%Y-%m-%dT%H:%M:%S") }}</p>
+      <label>From:
+        <!-- <input type="date" name="date_from" id="target_date_fm" required> -->
+        <input type="date" name="date_from" id="target_date_fm" value="{{ date_from | default(default_date[:10]) }}" required>
+      </label>
+      <label>To:
+        <input type="date" name="date_to" id="target_date_to" value="{{ date_to | default(default_date[:10]) }}" required>
+      </label>
+      <button type="submit" id="editPostButton">Save</button>
+    </form>
   {% endif %}
-
 {% endblock %}
