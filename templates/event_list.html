@@ -3,7 +3,7 @@
 
 {% block content %}
     {% if user.is_organizer %}
-        <p>Please click <a href="{{ url_for('add_post', group_id=group.group_id) }}">here</a> to add the post!</p>
+        <p>Please click <a href="{{ url_for('add_event', group_id=group.group_id) }}">here</a> to add the event!</p>
     {% endif %}
     <table>
         <thead>
@@ -13,27 +13,29 @@
                 <th>Context</th>
                 <th>From</th>
                 <th>To</th>
+                <th>Created at</th>
                 <td span="2"></td>
             </tr>
         </thead>
         <tbody>
-            {% for post in group.posts %}
+            {% for event in group.events %}
             <tr>
-                <td>{{ post.editor.username }}</td>
-                <td>{{ post.title }}</td>
-                <td>{{ post.context }}</td>
-                <td>{{ post.date_fm.strftime('%Y-%m-%d') }}</td>
-                <td>{{ post.date_to.strftime('%Y-%m-%d') }}</td>
-                {% if user == post.editor or user == group.create_user %}
+                <td>{{ event.editor.username }}</td>
+                <td>{{ event.title }}</td>
+                <td>{{ event.context }}</td>
+                <td>{{ event.date_fm.strftime('%Y-%m-%d') }}</td>
+                <td>{{ event.date_to.strftime('%Y-%m-%d') }}</td>
+                <td>{{ event.created_at.strftime('%Y-%m-%d') }}</td>
+                {% if user == event.editor or user == group.create_user %}
                 <!-- Edit Button -->
                     <td>
-                        <a href="{{ url_for('edit_post', post_id=post.post_id) }}">
+                        <a href="{{ url_for('edit_event', event_id=event.event_id) }}">
                             <button>Edit</button>
                         </a>
                     </td>
                     <td>
                         <!-- Delete Button -->
-                        <a href="{{ url_for('delete_post', post_id=post.post_id) }}">
+                        <a href="{{ url_for('delete_event', event_id=event.event_id) }}">
                             <button>Delete</button>
                         </a>
                     </td>

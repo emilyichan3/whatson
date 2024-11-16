@@ -1,8 +1,8 @@
 function init(){
     let action = document.getElementById('action').innerText; 
     if (action === "add"){
-        const form = document.getElementById('addPostForm');
-        // create a post
+        const form = document.getElementById('addEventForm');
+        // create an event
         let default_formattedDate = document.getElementById('default_date').innerText;
         let date_from = document.getElementById('date_from');
         let date_to = document.getElementById('date_to');
@@ -10,7 +10,7 @@ function init(){
         date_to = formattedDate(default_formattedDate);
         form.addEventListener('submit', function(event) {
             event.preventDefault();
-            if (addPost()) {
+            if (addEvent()) {
                 form.submit();
             } else {
                 alert("End date should not be earlier than the start date.");
@@ -18,9 +18,8 @@ function init(){
         })
 
     } else {
-        // edit a post
-        const form = document.getElementById('editPostForm');
-        console.log('addPost.');
+        // edit an event
+        const form = document.getElementById('editEventForm');
         let edit_date_from = document.getElementById('edit_date_fm').innerText;
         let edit_date_to = document.getElementById('edit_date_to').innerText;
         let target_date_fm = document.getElementById('target_date_fm');
@@ -29,7 +28,7 @@ function init(){
         target_date_to.value = formattedDate(edit_date_to);
         form.addEventListener('submit', function(event) {
             event.preventDefault();
-            if (editPost()) {
+            if (editEvent()) {
                 form.submit();
             } else {
                 alert("End date should not be earlier than the start date.");
@@ -50,7 +49,7 @@ function formattedDate(targetDate){
     return formattedDate;
 }
 
-function addPost(){
+function addEvent(){
     let date_fm = document.getElementById('date_from').value;
     let date_to = document.getElementById('date_to').value;
     if (isStartDateEarlierEndDate(date_fm, date_to)) {
@@ -62,7 +61,7 @@ function addPost(){
       }
 }
 
-function editPost() {
+function editEvent() {
     let date_fm = document.getElementById('target_date_fm').value;
     let date_to = document.getElementById('target_date_to').value;
     // Compare the date from with the date to

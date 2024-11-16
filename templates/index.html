@@ -5,12 +5,6 @@
     {% if user.is_organizer %}
         <p>Please click <a href="{{ url_for('create_group') }}">here</a> to create your own group!</p>
     {% endif %}
-    <!-- <ul>
-        {% for group in groups %}
-            <li><a href="{{ url_for('post_list', group_id=group.group_id) }}">{{ group.group_name }}</a></li>
-            <li><a href="{{ url_for('posts_by_group', group_id=group.group_id) }}">{{ group.group_name }}</a></li>
-        {% endfor %}
-    </ul> -->
 
     {% for group in groups %}
     <div>
@@ -18,7 +12,7 @@
             <table>
                 <tbody>
                     <tr>
-                        <td><a href="{{ url_for('post_list', group_id=group.group_id) }}">{{ group.group_name }}</a></td>
+                        <td><a href="{{ url_for('event_list', group_id=group.group_id) }}">{{ group.group_name }}</a></td>
                     </tr>
                     <tr>
                         <td>{{ group.create_user.username }}</td>

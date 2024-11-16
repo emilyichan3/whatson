@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta, timezone
 from flask import Flask, flash, render_template, redirect, request, url_for
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
-from models import User, Group, Post, db
+from models import User, Group, Event, db
 from sqlalchemy.sql import text
 
 app = Flask(__name__)
@@ -91,23 +91,23 @@ def logout_action():
     return redirect(url_for("index"))
 
 
-@app.route("/group_posts/<int:group_id>", methods=['GET'])
-def post_list(group_id):
+@app.route("/group_events/<int:group_id>", methods=['GET'])
+def event_list(group_id):
     group = Group.query.get_or_404(group_id)
-    return render_template("post_list.html", action='view', group=group, user=current_user)
+    return render_template("event_list.html", action='view', group=group, user=current_user)
 
 
-@app.route("/posts_by_group/<int:group_id>", methods=['GET'])
-def posts_by_group(group_id):
-    posts = Post.query.from_statement(
-        text("SELECT * FROM posts WHERE group_id = :group_id order by date_fm desc")
+@app.route("/find_event/<int:group_id>", methods=['GET'])
+def events_by_group(group_id):
+    events = Event.query.from_statement(
+        text("SELECT * FROM events WHERE group_id = :group_id order by date_fm desc")
     ).params(group_id=group_id).all()
-    return render_template("post_list_group.html", posts=posts)
+    return render_template("event_list_group.html", events=events)
 
 
-@app.route('/add_post/<int:group_id>', methods=['GET', 'POST'])
+@app.route('/add_event/<int:group_id>', methods=['GET', 'POST'])
 @login_required
-def add_post(group_id):
+def add_event(group_id):
     group = Group.query.get_or_404(group_id)
     formatted_date = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S")
     if request.method == 'POST':
@@ -119,19 +119,19 @@ def add_post(group_id):
              # Validate that the date from is not later than the date to
             if is_date_from_earlier_date_to(date_from, date_to):
                 # Add the new post to the database
-                db.session.add(Post(title=title, 
+                db.session.add(Event(title=title, 
                                     context=context, 
                                     date_fm=date_from, 
                                     date_to=date_to,
                                     group=group, 
                                     editor=current_user ))
                 db.session.commit()
-                return redirect(url_for('post_list',  group_id=group_id))
+                return redirect(url_for('event_list',  group_id=group_id))
             else:
                 # Flash message and re-render the page with the entered data
                 flash("End date should not be earlier than the start date.", "error")
                 return render_template(
-                    'post.html',
+                    'event.html',
                     action='add',
                     group=group,
                     title=title,
@@ -144,7 +144,7 @@ def add_post(group_id):
            # Flash an error message for invalid date input
             flash("Invalid date format. Please use YYYY-MM-DD.", "error")
             return render_template(
-                'post.html',
+                'event.html',
                 action='add',
                 group=group,
                 title=request.form.get('title', ''),
@@ -154,32 +154,32 @@ def add_post(group_id):
                 default_date=formatted_date
             )
     # Render the form with default data for GET requests
-    return render_template('post.html', action='add', group=group, default_date=formatted_date)
+    return render_template('event.html', action='add', group=group, default_date=formatted_date)
 
 
-@app.route('/edit_post/<int:post_id>', methods=['GET', 'POST'])
+@app.route('/edit_event/<int:event_id>', methods=['GET', 'POST'])
 @login_required
-def edit_post(post_id):
-    post = Post.query.get_or_404(post_id)
+def edit_event(event_id):
+    event = Event.query.get_or_404(event_id)
     formatted_date = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S")
     if request.method == 'POST':
         try:
-            group_id = post.group_id
-            post.title = request.form['title']
-            post.context = request.form['context']
-            post.date_fm = datetime.strptime(request.form['date_from'], '%Y-%m-%d')
-            post.date_to = datetime.strptime(request.form['date_to'], '%Y-%m-%d')
+            group_id = event.group_id
+            event.title = request.form['title']
+            event.context = request.form['context']
+            event.date_fm = datetime.strptime(request.form['date_from'], '%Y-%m-%d')
+            event.date_to = datetime.strptime(request.form['date_to'], '%Y-%m-%d')
             # Validate that the date from is not later than the date to
-            if is_date_from_earlier_date_to(post.date_fm, post.date_to):
+            if is_date_from_earlier_date_to(event.date_fm, event.date_to):
                 db.session.commit()
-                return redirect(url_for('post_list',  group_id=group_id))
+                return redirect(url_for('event_list',  group_id=group_id))
             else:
                 # Flash message and re-render the page with the entered data
                 flash("End date should not be earlier than the start date.", "error")
                 return render_template(
-                    'post.html',
+                    'event.html',
                     action='edit',
-                    post=post,
+                    event=event,
                     title=request.form.get('title', ''),
                     context=request.form.get('context', ''),
                     date_from=request.form.get('date_from', ''),
@@ -190,9 +190,9 @@ def edit_post(post_id):
            # Flash an error message for invalid date input
             flash("Invalid date format. Please use YYYY-MM-DD.", "error")
             return render_template(
-                'post.html',
+                'event.html',
                 action='edit',
-                post=post,
+                event=event,
                 title=request.form.get('title', ''),
                 context=request.form.get('context', ''),
                 date_from=request.form.get('date_from', ''),
@@ -200,17 +200,17 @@ def edit_post(post_id):
                 default_date=formatted_date
             )
     # Render the form with default data for GET requests
-    return render_template('post.html', action='edit',post=post,default_date=formatted_date)
+    return render_template('event.html', action='edit',event=event,default_date=formatted_date)
 
-@app.route('/delete_post/<int:post_id>', methods=['GET', 'POST'])
+@app.route('/delete_event/<int:event_id>', methods=['GET', 'POST'])
 @login_required
-def delete_post(post_id):
-    post = Post.query.get_or_404(post_id)
+def delete_event(event_id):
+    event = Event.query.get_or_404(event_id)
     if request.method == 'POST':
-        db.session.delete(post)
+        db.session.delete(event)
         db.session.commit()
-        return redirect(url_for('post_list',  group_id=post.group_id)) 
-    return render_template('delete_post.html', post=post)
+        return redirect(url_for('event_list',  group_id=event.group_id)) 
+    return render_template('delete_event.html', event=event)
 
 @app.route('/create_group', methods=['GET', 'POST'])
 @login_required
