@@ -16,6 +16,9 @@
       <label>context:
           <textarea name="context" id="context" required>{{ context | default('') }}</textarea>
       </label>
+      <label>location:
+        <input type="text" name="location" id="location" >{{ location | default('') }}
+      </label>
       <p class="hidden" id="default_date">{{ default_date }}</p>
       <label>From:
         <input type="date" name="date_from" id="date_from" value="{{ date_from | default(default_date[:10]) }}" required>
@@ -27,22 +30,25 @@
     </form>
   {% else %}
     <h2>Edit an event</h2>
-    <form id="editEventForm" action="{{ url_for('edit_event', event_id=event.event_id) }}" method="POST">
-      <label>title:
+      <form id="editEventForm" action="{{ url_for('edit_event', event_id=event.event_id) }}" method="POST">
+        <label>title:
           <input type="text" name="title" id="title" value="{{ event.title | default('') }}" required>
-      </label>
-      <label>context:
+        </label>
+        <label>context:
           <textarea name="context" id="context" required>{{ event.context | default('') }}</textarea>
-      </label>
-      <p class="hidden" id="edit_date_fm">{{ event.date_fm.strftime("%Y-%m-%dT%H:%M:%S") }}</p>
-      <p class="hidden" id="edit_date_to">{{ event.date_to.strftime("%Y-%m-%dT%H:%M:%S") }}</p>
-      <label>From:
-        <input type="date" name="date_from" id="target_date_fm" value="{{ date_from | default(default_date[:10]) }}" required>
-      </label>
-      <label>To:
-        <input type="date" name="date_to" id="target_date_to" value="{{ date_to | default(default_date[:10]) }}" required>
-      </label>
-      <button type="submit" id="editEventButton">Save</button>
-    </form>
+        </label>
+        <label>location:
+          <input type="text" name="location" id="location" >{{ location | default('') }}
+        </label>
+        <p class="hidden" id="edit_date_fm">{{ event.date_fm.strftime("%Y-%m-%dT%H:%M:%S") }}</p>
+        <p class="hidden" id="edit_date_to">{{ event.date_to.strftime("%Y-%m-%dT%H:%M:%S") }}</p>
+        <label>From:
+          <input type="date" name="date_from" id="target_date_fm" value="{{ date_from | default(default_date[:10]) }}" required>
+        </label>
+        <label>To:
+          <input type="date" name="date_to" id="target_date_to" value="{{ date_to | default(default_date[:10]) }}" required>
+        </label>
+        <button type="submit" id="editEventButton">Save</button>
+      </form>
   {% endif %}
 {% endblock %}

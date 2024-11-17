@@ -2,14 +2,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <!-- [html-validate-disable attribute-allowed-values] -->
-    <form action="{{ url_for('register_action') }}" method="POST">
-      <label>Username:
-        <input type="text" name="username" placeholder="Username" required>
-      </label>
-      <label>Are you an organizer?
-        <input type="checkbox" name="is_organizer">
-      </label>
-      <button type="submit">Register</button>
-    </form>
+<div class="input-layout">
+  <form action="{{ url_for('register_action') }}" method="POST">
+    <label>Username:
+      <input type="text" name="username" placeholder="Username" required autofocus>
+    </label>
+    <label>Are you an organizer?
+      <input type="checkbox" name="is_organizer">
+    </label>
+    <button class="btn btn-primary" type="submit">Register</button>
+  </form>
+</div>
 {% endblock %}

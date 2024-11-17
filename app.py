@@ -119,6 +119,7 @@ def add_event(group_id):
         try:
             title = request.form['title']
             context = request.form['context']
+            location = request.form['location']
             date_from = datetime.strptime(request.form['date_from'], '%Y-%m-%d')
             date_to = datetime.strptime(request.form['date_to'], '%Y-%m-%d')    
              # Validate that the date from is not later than the date to
@@ -126,6 +127,7 @@ def add_event(group_id):
                 # Add the new post to the database
                 db.session.add(Event(title=title, 
                                     context=context, 
+                                    location=location,
                                     date_fm=date_from, 
                                     date_to=date_to,
                                     group=group, 
@@ -141,6 +143,7 @@ def add_event(group_id):
                     group=group,
                     title=title,
                     context=context,
+                    location=location,
                     date_from=request.form['date_from'],
                     date_to=request.form['date_to'],
                     default_date=formatted_date
@@ -154,6 +157,7 @@ def add_event(group_id):
                 group=group,
                 title=request.form.get('title', ''),
                 context=request.form.get('context', ''),
+                location=request.form.get('location', ''),
                 date_from=request.form.get('date_from', ''),
                 date_to=request.form.get('date_to', ''),
                 default_date=formatted_date
@@ -173,6 +177,7 @@ def edit_event(event_id):
             group_id = event.group_id
             event.title = request.form['title']
             event.context = request.form['context']
+            event.location = request.form['location']
             event.date_fm = datetime.strptime(request.form['date_from'], '%Y-%m-%d')
             event.date_to = datetime.strptime(request.form['date_to'], '%Y-%m-%d')
             # Validate that the date from is not later than the date to
@@ -188,6 +193,7 @@ def edit_event(event_id):
                     event=event,
                     title=request.form.get('title', ''),
                     context=request.form.get('context', ''),
+                    location=request.form.get('location', ''),
                     date_from=request.form.get('date_from', ''),
                     date_to=request.form.get('date_to', ''),
                     default_date=formatted_date
@@ -201,6 +207,7 @@ def edit_event(event_id):
                 event=event,
                 title=request.form.get('title', ''),
                 context=request.form.get('context', ''),
+                location=request.form.get('location', ''),
                 date_from=request.form.get('date_from', ''),
                 date_to=request.form.get('date_to', ''),
                 default_date=formatted_date

@@ -4,42 +4,77 @@
     {# Set the `title` variable in each template that extends this one #}
     <title>{{ title }}</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
-      <!-- Bootstrap 5, to not have to worry much about CSS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-    crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/static/js/script_style.js"></script>
     {% block additional_js %}
 
     {% endblock %}
 </head>
 <body>
-    <header>
-        <h1>What's On</h1>
-        <nav class="navbar">
+  <div id="wrapper">
+    <div class="header-container">
+      <header class="top-navigation">
+        <div class="container">
+          <img src="/static/images/whatson.png" alt="What's On">
+          <div class="header-content">
+              <h1>What's On Today</h1>
+              <p id="username">{% if session['username'] %} Welcome {{ session['username'] }} {% endif %}</p>
+          </div>
+          <button type="button" id="menubar" onclick="menuBar()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+            </svg>
+        </button>
+        </div>
+      </header>
+      <div>
+        <nav>
+          <div id="big-menu">
             <ul>
-                <li><a href="{{ url_for('index') }}">Home</a></li>
-                <li><a href="{{ url_for('events_on') }}">Events on today</a></li>
-                {% if current_user.is_authenticated %}
-                  <li><a href="{{ url_for('logout_page') }}">Logout</a></li>
-                {% else %}
-                  <li><a href="{{ url_for('login_page') }}">Login</a></li>
-                  <li><a href="{{ url_for('register_page') }}">Register</a></li>
-                {% endif %}
+              <li><a href="{{ url_for('index') }}">Home</a></li>
+              <li><a href="{{ url_for('events_on') }}">Events on today</a></li>
+              {% if current_user.is_authenticated %}
+                <li><a href="{{ url_for('logout_page') }}">Logout</a></li>
+              {% else %}
+                <li><a href="{{ url_for('login_page') }}">Login</a></li>
+                <li><a href="{{ url_for('register_page') }}">Register</a></li>
+              {% endif %}
             </ul>
+          </div>
+          <div id="small-menu">
+            <ul id="menu-list">
+              <li><a href="{{ url_for('index') }}">Home</a></li>
+              <li><a href="{{ url_for('events_on') }}">Events on today</a></li>
+              {% if current_user.is_authenticated %}
+                <li><a href="{{ url_for('logout_page') }}">Logout</a></li>
+              {% else %}
+                <li><a href="{{ url_for('login_page') }}">Login</a></li>
+                <li><a href="{{ url_for('register_page') }}">Register</a></li>
+              {% endif %}
+            </ul>
+          </div>
         </nav>
-    </header>
-    <main>
-      <h1>{{ title }}</h1>
-      {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-      <ul class="flashes">
-        {% for category, message in messages %}
-        <li class="{{ category }}">{{ message }}</li>
-        {% endfor %}
-      </ul>
-      {% endif %}
-      {% endwith %}
-      {% block content %}{% endblock %}
-    </main>
+      </div>
+    </div>
+    <div id="main-content" class="main-content">
+      <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+          <ul class="flashes">
+            {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+        {% endwith %}
+        <div class="display-layout">
+          {% block content %}{% endblock %}
+        </div>
+      </main>
+    </div>
+  </div>
+  <footer>
+    <p>© Copyright Yi-jung's UCD Ireland Database Assignment 2024. All Rights Reserved. Please <a href="https://www.linkedin.com/in/yijung-chen-5052a4a4/">Contact Me</a> for further queries.</p>
+  </footer>
 </body>
 </html>

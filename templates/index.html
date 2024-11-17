@@ -2,12 +2,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="user-layout">
     {% if user.is_organizer %}
         <p>Please click <a href="{{ url_for('create_group') }}">here</a> to create your own group!</p>
     {% endif %}
-
+</div>
+<div class="group-layout">
     {% for group in groups %}
-    <div>
+    <div class="group-container">
         <form action="{{ url_for('edit_group', group_id=group.group_id) }}">
             <table>
                 <tbody>
@@ -15,14 +17,14 @@
                         <td><a href="{{ url_for('event_list', group_id=group.group_id) }}">{{ group.group_name }}</a></td>
                     </tr>
                     <tr>
-                        <td>{{ group.create_user.username }}</td>
+                        <td class="context-overflow">{{ group.create_user.username }}</td>
                     </tr>
                     <tr>
-                        <td>{{ group.description }}</td>
+                        <td class="context-overflow">{{ group.description }}</td>
                     </tr>
                     {% if user == group.create_user %}
                     <tr>
-                        <td><button type="submit" id="editGroupButton">Edit</button></td>
+                        <td><button class="btn btn-primary" type="submit" id="editGroupButton">Edit</button></td>
                     </tr>
                     {% endif %}
                 </tbody>
@@ -30,5 +32,7 @@
         </form>
     </div>
     {% endfor %}
+</div>
+
 
 {% endblock %}

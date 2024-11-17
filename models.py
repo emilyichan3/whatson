@@ -47,6 +47,7 @@ class Event(db.Model):
     event_id = db.mapped_column(db.Integer, primary_key=True)
     title = db.mapped_column(db.String(250), nullable=False)
     context = db.mapped_column(db.String(500), nullable=False)
+    location = db.mapped_column(db.String(200))
     date_fm = db.mapped_column(db.Date, default=datetime.utcnow().date)
     date_to = db.mapped_column(db.Date, nullable=False)
     created_at = db.mapped_column(db.DateTime, default=datetime.utcnow)

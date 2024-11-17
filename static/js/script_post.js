@@ -6,8 +6,10 @@ function init(){
         let default_formattedDate = document.getElementById('default_date').innerText;
         let date_from = document.getElementById('date_from');
         let date_to = document.getElementById('date_to');
+        // Set default values for both date inputs
         date_from = formattedDate(default_formattedDate);
         date_to = formattedDate(default_formattedDate);
+
         form.addEventListener('submit', function(event) {
             event.preventDefault();
             if (addEvent()) {
