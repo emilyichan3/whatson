@@ -3,11 +3,14 @@
 {% extends 'base.html' %}
 {% block content %}
     <h2>Edit {{ group.group_nam }}</h2>
-    <form method="POST">
-      <label>Description:
-          <input type="text" name="group_description" value="{{ group.description }}"  required>
-      </label>
-      <button type="submit">Update</button>
-    </form>
-
+    <div class="group-layout">
+      <form method="POST">
+        <label class="field">Description:
+          <textarea type="text" name="group_description"  required>{{ group.description }}</textarea>
+        </label>
+        <label class="field">
+          <button type="submit">Update</button>
+        </label>
+      </form>
+    </div>
 {% endblock %}

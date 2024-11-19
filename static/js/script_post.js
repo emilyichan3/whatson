@@ -12,11 +12,13 @@ function init(){
 
         form.addEventListener('submit', function(event) {
             event.preventDefault();
-            if (addEvent()) {
-                form.submit();
-            } else {
-                alert("End date should not be earlier than the start date.");
-            }
+            form.submit();
+            // Using javascript to check the dates
+            // if (addEvent()) {
+            //     form.submit();
+            // } else {
+            //     alert("End date should not be earlier than the start date.");
+            // }
         })
 
     } else {
@@ -30,11 +32,13 @@ function init(){
         target_date_to.value = formattedDate(edit_date_to);
         form.addEventListener('submit', function(event) {
             event.preventDefault();
-            if (editEvent()) {
-                form.submit();
-            } else {
-                alert("End date should not be earlier than the start date.");
-            }
+            form.submit();
+            // Using javascript to check the dates
+            // if (editEvent()) {
+            //     form.submit();
+            // } else {
+            //     alert("End date should not be earlier than the start date.");
+            // }
         })
     }
 }

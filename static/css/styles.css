@@ -150,24 +150,112 @@ footer p{
   margin: 0;
   line-height: 150%;
 }
-form {
-  margin-bottom:10px;
+.main-layout {
+  align-content: left;
 }
-.hide {
+/* input form styling */
+form {
+  width: 80%;
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  grid-gap: 1em;
+  margin-bottom: 1em;
+}
+.field {
+  grid-column: span 2;
+  display: grid;
+  grid: inherit;
+  grid-template-columns: 8em 1fr;
+  gap: 1em;
+}
+.field-button {
+  grid-column: 1;
+  display: grid;
+  grid: inherit;
+  grid-template-columns: 1fr;
+  gap: 1em;
+}
+
+input {
+  height: 2em;
+}
+textarea {
+  height: 10em;
+}
+.date-input {
+  max-width: fit-content;
+}
+input.readonly {
+    background-color: #f0f0f0; 
+    color: #666;            
+    border: 1px solid #ccc;  
+    cursor: not-allowed;     
+}
+button {
+  width: 80px;
+  padding: 8px 15px;
+  background-color: #007bff;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
+}
+button:hover {
+  background-color: #fd7e14;
+}
+.button-delete-confirm {
+  width: 300px;
+}
+/* form styling end */
+/* Flash messages container */
+.flashes {
+  display: block;
+  width: 80%;
+  margin: auto auto 20px auto;
+  pointer-events: none; /* Disable the hover effect */
+}
+
+/* Flash message */
+ul {
+  list-style: none;
+  padding: 0;
+}
+.flashes li {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 3px;
+  color: #300505;
+  background-color: #a7ac1b;
+}
+
+.flashes .error {
+  color: red;
+  background-color: yellow;
+}
+.hidden {
   display: none;
 }
 .user-layout {
   display:grid;
   justify-content:left;
 }
-.display-layout h1 {
+.display-layout h1,h2 {
   display: grid;
   justify-content: left;
 }
+
 .input-layout form{
     width: 100%;
     display:grid;
     justify-content: left;
+}
+.main-layout {
+  display: flex;
+  flex-flow: column wrap;
+  width: 100%;
+  justify-content:left
 }
 .group-layout {
   display: flex;
@@ -177,7 +265,7 @@ form {
   /* gap: 1rem; */
 }
 
-.group-container form {
+.group-container .group-form {
   text-align: left;
   width: 350px;
   min-height: fit-content;
@@ -248,20 +336,17 @@ form {
   #big-menu a:hover {
       text-decoration: underline;
   }
-  .display-layout h1 {
+  .display-layout h1,h2 {
     display: grid;
     justify-content: center;
   }
-  .input-layout form{
-      width: 100%;
-      display:grid;
-      justify-content: center;
+  .main-layout {
+    align-content: center;
   }
   .user-layout {
     display:grid;
     justify-content:center;
   }
-
   .group-layout {
     display: flex;
     flex-flow: row wrap;
@@ -270,7 +355,7 @@ form {
     gap: 1rem;
   }
   
-  .group-container form {
+  .group-container .group-form {
     text-align: center;
     width: 350px;
     min-height: fit-content;

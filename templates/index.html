@@ -10,7 +10,7 @@
 <div class="group-layout">
     {% for group in groups %}
     <div class="group-container">
-        <form action="{{ url_for('edit_group', group_id=group.group_id) }}">
+        <form class="group-form" action="{{ url_for('edit_group', group_id=group.group_id) }}">
             <table>
                 <tbody>
                     <tr>
