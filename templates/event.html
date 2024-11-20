@@ -34,7 +34,7 @@
         </label>
       </form>
     </div>
-  {% else %}
+  {% elif  action == "edit" %}
   <h2>Edit an event</h2>
   <div class="group-layout">
       <form id="editEventForm" action="{{ url_for('edit_event', event_id=event.event_id) }}" method="POST">
@@ -60,6 +60,33 @@
         </label>
         <button type="submit" id="editEventButton">Save</button>
       </form>
+  {% else %}
+  <div class="group-layout">
+    <form id="viewEventForm">
+      <label class="field">Group:
+        <input type="text" class="readonly" name="group"  value="{{ event.group.group_name | default('') }}" readonly>
+    </label>
+      <label class="field">Title:
+        <input type="text" class="readonly" name="title" id="title" value="{{ event.title | default('') }}" readonly>
+      </label>
+      <label class="field">Context:
+        <textarea name="context" class="readonly" id="context" readonly>{{ event.context | default('') }}</textarea>
+      </label>
+      <label class="field">Location:
+        <input type="text" class="readonly" name="location" id="location" value="{{ event.location | default('') }}" readonly>
+      </label>
+      <label class="field">From:
+        <input type="date" class="readonly date-input" name="date_from" id="target_date_fm" value="{{ date_from | default(default_date[:10]) }}" readonly>
+      </label>
+      <label class="field">To:
+        <input type="date" class="readonly date-input" name="date_to" id="target_date_to" value="{{ date_to | default(default_date[:10]) }}" readonly>
+      </label>
+      <label class="field">
+        <a href="{{ url_for('event_list', group_id=event.group.group_id) }}">
+        Go Back
+      </a>
+      </label>
+    </form>
   {% endif %}
 </div>
 

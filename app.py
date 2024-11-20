@@ -224,6 +224,14 @@ def delete_event(event_id):
         return redirect(url_for('event_list',  group_id=event.group_id)) 
     return render_template('delete_event.html', event=event)
 
+@app.route('/view_event/<int:event_id>', methods=['GET'])
+@login_required
+def view_event(event_id):
+    event = Event.query.get_or_404(event_id)
+    formatted_date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    return render_template('event.html', action='view',event=event,default_date=formatted_date)
+
+
 @app.route('/create_group', methods=['GET', 'POST'])
 @login_required
 def create_group():
