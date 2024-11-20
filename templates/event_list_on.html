@@ -9,6 +9,7 @@
                 <th>Title</th>
                 <th>From</th>
                 <th>To</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -18,6 +19,11 @@
                 <td class="table-column-td-width-title">{{ event.title }}</td>
                 <td class="table-column-td-width-fit">{{ event.date_fm.strftime('%Y-%m-%d') }}</td>
                 <td class="table-column-td-width-fit">{{ event.date_to.strftime('%Y-%m-%d') }}</td>
+                <td>
+                    <a href="{{ url_for('view_event', event_id=event.event_id) }}">
+                        <button>View</button>
+                    </a>
+                </td>
             </tr>
             {% endfor %}
         </tbody>

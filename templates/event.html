@@ -81,13 +81,18 @@
       <label class="field">To:
         <input type="date" class="readonly date-input" name="date_to" id="target_date_to" value="{{ date_to | default(default_date[:10]) }}" readonly>
       </label>
-      <label class="field">
-        <a href="{{ url_for('event_list', group_id=event.group.group_id) }}">
-        Go Back
-      </a>
-      </label>
     </form>
+    <p>
+      <a href="{{ url_for('event_list', group_id=event.group.group_id) }}">
+        Go Back to event list
+      </a>
+    </p>
+    <p>
+      <a href="{{ url_for('events_on') }}">
+        Go Back to today's event
+      </a>
+    </p>
+
   {% endif %}
 </div>
-
 {% endblock %}
