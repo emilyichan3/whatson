@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="group-layout">
+<div class="group-layout table-layout">
     <table>
         <thead>
             <tr>
@@ -14,10 +14,10 @@
         <tbody>
             {% for event in events %}
             <tr>
-                <td>{{ event.group.group_name }}</td>
-                <td>{{ event.title }}</td>
-                <td>{{ event.date_fm.strftime('%Y-%m-%d') }}</td>
-                <td>{{ event.date_to.strftime('%Y-%m-%d') }}</td>
+                <td class="table-column-td-width">{{ event.group.group_name }}</td>
+                <td class="table-column-td-width-title">{{ event.title }}</td>
+                <td class="table-column-td-width-fit">{{ event.date_fm.strftime('%Y-%m-%d') }}</td>
+                <td class="table-column-td-width-fit">{{ event.date_to.strftime('%Y-%m-%d') }}</td>
             </tr>
             {% endfor %}
         </tbody>

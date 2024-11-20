@@ -1,0 +1,21 @@
+{% set title = group.group_name %}
+
+{% extends 'base.html' %}
+{% block content %}
+    <h2>{{ group.group_name }}</h2>
+    <div class="group-layout">
+      <form>
+        <label class="field">Name:
+          <input type="text" class="readonly" name="group"  value="{{ group.group_name }}" readonly>
+        </label>
+        <label class="field">Description:
+          <textarea type="text" class="readonly" name="group_description"  value="{{ group.description }}" readonly>{{ group.description }}</textarea>
+        </label>
+        <label class="field1">
+            <a href="{{ url_for('index') }}">
+                Go back
+            </a>
+        </label>
+      </form>
+    </div>
+{% endblock %}

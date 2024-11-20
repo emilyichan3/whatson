@@ -5,7 +5,7 @@
 <div class="input-layout">
   <form action="{{ url_for('register_action') }}" method="POST">
     <label>Username:
-      <input type="text" name="username" placeholder="Username" required autofocus>
+      <input type="text" name="username" maxlength="60" placeholder="Username" required autofocus>
     </label>
     <label>Are you an organizer?
       <input type="checkbox" name="is_organizer">

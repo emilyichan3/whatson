@@ -2,9 +2,12 @@
 
 {% extends 'base.html' %}
 {% block content %}
-    <h2>Edit {{ group.group_nam }}</h2>
+    <h2>Edit</h2>
     <div class="group-layout">
       <form method="POST">
+        <label class="field">Name:
+          <input type="text" class="readonly" name="group"  value="{{ group.group_name | default('') }}" readonly>
+        </label>
         <label class="field">Description:
           <textarea type="text" name="group_description"  required>{{ group.description }}</textarea>
         </label>

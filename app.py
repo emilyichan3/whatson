@@ -250,6 +250,12 @@ def edit_group(group_id):
     
     return render_template('edit_group.html', group=group)
 
+@app.route('/view_group/<int:group_id>',  methods=['GET'])
+@login_required
+def view_group(group_id):
+    group = Group.query.get_or_404(group_id)
+    return render_template('view_group.html', group=group)
+
 def is_date_from_earlier_date_to(date_from, date_to):
     return date_from <= date_to
 

@@ -10,7 +10,8 @@
 <div class="group-layout">
     {% for group in groups %}
     <div class="group-container">
-        <form class="group-form" action="{{ url_for('edit_group', group_id=group.group_id) }}">
+        <!-- <form class="group-form" action="{{ url_for('edit_group', group_id=group.group_id) }}"> -->
+        <div class="group-form">
             <table>
                 <tbody>
                     <tr>
@@ -22,14 +23,22 @@
                     <tr>
                         <td class="context-overflow">{{ group.description }}</td>
                     </tr>
-                    {% if user == group.create_user %}
                     <tr>
-                        <td><button class="btn btn-primary" type="submit" id="editGroupButton">Edit</button></td>
+                        <td>
+                            <a href="{{ url_for('view_group', group_id=group.group_id) }}">
+                                <button>View</button>
+                            </a>
+                            {% if user == group.create_user %}
+                            <a href="{{ url_for('edit_group', group_id=group.group_id) }}">
+                                <button>Edit</button>
+                            </a>
+                                <!-- <button  type="submit" id="editGroupButton">Edit</button> -->
+                            {% endif %}
+                        </td>
                     </tr>
-                    {% endif %}
                 </tbody>
             </table>
-        </form>
+        </div>
     </div>
     {% endfor %}
 </div>

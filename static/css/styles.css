@@ -150,12 +150,8 @@ footer p{
   margin: 0;
   line-height: 150%;
 }
-.main-layout {
-  align-content: left;
-}
 /* input form styling */
 form {
-  width: 80%;
   display: grid;
   grid-template-columns: max-content 1fr;
   grid-gap: 1em;
@@ -185,12 +181,21 @@ textarea {
 .date-input {
   max-width: fit-content;
 }
+
 input.readonly {
     background-color: #f0f0f0; 
     color: #666;            
     border: 1px solid #ccc;  
     cursor: not-allowed;     
 }
+
+textarea.readonly {
+  background-color: #f0f0f0; 
+  color: #666;            
+  border: 1px solid #ccc;  
+  cursor: not-allowed;     
+}
+
 button {
   width: 80px;
   padding: 8px 15px;
@@ -234,6 +239,53 @@ ul {
   color: red;
   background-color: yellow;
 }
+/* Table formatting */
+
+table {
+  width: 70%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+form table {
+  width: 100%;
+}
+
+.group-form th, .group-form td {
+  border: 0px;
+  padding: 2px;
+  text-align: center;
+  /* height: 50px; */
+}
+.table-layout th, .table-layout td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+.table-layout th {
+  background-color: #f2f2f2;
+  color: #333;
+  font-weight: bold;
+  overflow: hidden;
+}
+
+.table-layout tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.table-layout tr:hover {
+  background-color: #f1f1f1;
+}
+
+a {
+  color: #1a73e8;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
 .hidden {
   display: none;
 }
@@ -241,6 +293,11 @@ ul {
   display:grid;
   justify-content:left;
 }
+.display-layout {
+  display:grid;
+  justify-content:left;
+}
+
 .display-layout h1,h2 {
   display: grid;
   justify-content: left;
@@ -251,12 +308,12 @@ ul {
     display:grid;
     justify-content: left;
 }
-.main-layout {
+/* .main-layout {
   display: flex;
   flex-flow: column wrap;
   width: 100%;
   justify-content:left
-}
+} */
 .group-layout {
   display: flex;
   flex-flow: column wrap;
@@ -265,15 +322,45 @@ ul {
   /* gap: 1rem; */
 }
 
+.group-layout form{
+  width: 100%;
+}
+
 .group-container .group-form {
   text-align: left;
   width: 350px;
   min-height: fit-content;
   border: 1px solid #0f0c0d;
 }
+.table-width-buttons {
+  max-width: fit-content;
+}
+.table-column-td-width {
+  width: 20%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.table-column-td-width-title {
+  width: 50%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.table-column-td-width-fit {
+  width: auto;
+}
 .context-overflow {
-  width: 350px;
+  width: 350px;           /* Set the desired width */
   overflow-wrap: anywhere;
+  line-height: 1.5em;     /* Set the line height (e.g., 1.5 times the font size) */
+  max-height: 4.5em;      /* Limit the height to 3 lines (line-height * 3) */
+  overflow: hidden;       /* Hide the overflowing content */
+  text-overflow: ellipsis; /* Optional: Add ellipsis for truncated text */
+  display: -webkit-box;   /* Required for limiting lines with WebKit */
+  -webkit-box-orient: vertical; /* Required for limiting lines with WebKit */
+  -webkit-line-clamp: 3;  /* Limit to 3 lines */
 }
 
 @media (min-width: 992px) {
@@ -336,12 +423,14 @@ ul {
   #big-menu a:hover {
       text-decoration: underline;
   }
+  .display-layout {
+    display:grid;
+    justify-content:center;
+  }
+  
   .display-layout h1,h2 {
     display: grid;
     justify-content: center;
-  }
-  .main-layout {
-    align-content: center;
   }
   .user-layout {
     display:grid;
@@ -361,9 +450,22 @@ ul {
     min-height: fit-content;
     border: 1px solid #0f0c0d;
   }
-  .context-overflow {
+  .table-width-buttons {
+    max-width: fit-content;
+  }
+  /* .context-overflow {
     width: 350px;
     overflow-wrap: anywhere;
+  } */
+  .context-overflow {
+    width: 350px;           /* Set the desired width */
+    overflow-wrap: anywhere;
+    line-height: 1.5em;     /* Set the line height (e.g., 1.5 times the font size) */
+    max-height: 4.5em;      /* Limit the height to 3 lines (line-height * 3) */
+    overflow: hidden;       /* Hide the overflowing content */
+    text-overflow: ellipsis; /* Optional: Add ellipsis for truncated text */
+    display: -webkit-box;   /* Required for limiting lines with WebKit */
+    -webkit-box-orient: vertical; /* Required for limiting lines with WebKit */
+    -webkit-line-clamp: 3;  /* Limit to 3 lines */
   }
- 
 }
