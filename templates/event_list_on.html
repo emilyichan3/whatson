@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="group-layout table-layout">
-    <table>
+<div class="group-layout ">
+    <table class="table-layout">
         <thead>
             <tr>
-                <th>Group</th>
-                <th>Title</th>
+                <th class="table-column-td-width">Group</th>
+                <th class="table-column-td-width-title">Event</th>
                 <th>From</th>
-                <th>To</th>
+                <th class="big-screen">To</th>
                 <th></th>
             </tr>
         </thead>
@@ -17,12 +17,10 @@
             <tr>
                 <td class="table-column-td-width">{{ event.group.group_name }}</td>
                 <td class="table-column-td-width-title">{{ event.title }}</td>
-                <td class="table-column-td-width-fit">{{ event.date_fm.strftime('%Y-%m-%d') }}</td>
-                <td class="table-column-td-width-fit">{{ event.date_to.strftime('%Y-%m-%d') }}</td>
+                <td>{{ event.date_fm.strftime('%Y-%m-%d') }}</td>
+                <td class="big-screen">{{ event.date_to.strftime('%Y-%m-%d') }}</td>
                 <td>
-                    <a href="{{ url_for('view_event', event_id=event.event_id) }}">
-                        <button>View</button>
-                    </a>
+                    <a class="link_line" href="{{ url_for('view_event', event_id=event.event_id) }}">View</a>
                 </td>
             </tr>
             {% endfor %}

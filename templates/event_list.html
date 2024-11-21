@@ -12,39 +12,27 @@
     <table class="table-layout">
         <thead>
             <tr>
-                <th class="hidden">Editor</th>
-                <th>Title</th>
-                <th class="hidden">Context</th>
-                <th>Location</th>
+                <th class="table-column-td-width-title">Event</th>
+                <th class="table-column-td-width">Location</th>
                 <th>From</th>
-                <th>To</th>
-                <th class="hidden">Created at</th>
-                <th class="table-width-buttons"></th>
+                <th class="big-screen">To</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             {% for event in group.events %}
             <tr>
-                <td class="hidden">{{ event.editor.username }}</td>
-                <td>{{ event.title }}</td>
-                <td class="hidden">{{ event.context }}</td>
-                <td>{{ event.location }}</td>
+                <td class="table-column-td-width-title">{{ event.title }}</td>
+                <td class="table-column-td-width">{{ event.location }}</td>
                 <td>{{ event.date_fm.strftime('%Y-%m-%d') }}</td>
-                <td>{{ event.date_to.strftime('%Y-%m-%d') }}</td>
-                <td class="hidden">{{ event.created_at.strftime('%Y-%m-%d') }}</td>
-                <td class="table-width-buttons">
-                    <a href="{{ url_for('view_event', event_id=event.event_id) }}">
-                        <button>View</button>
-                    </a>
+                <td class="big-screen">{{ event.date_to.strftime('%Y-%m-%d') }}</td>
+                <td>
+                    <a class="link_line" href="{{ url_for('view_event', event_id=event.event_id) }}">View</a>
                     {% if user == event.editor or user == group.create_user %}
                     <!-- Edit Button -->
-                    <a href="{{ url_for('edit_event', event_id=event.event_id) }}">
-                        <button>Edit</button>
-                    </a>
+                    <a class="link_line" href="{{ url_for('edit_event', event_id=event.event_id) }}">Edit</a>
                     <!-- Delete Button -->
-                    <a href="{{ url_for('delete_event', event_id=event.event_id) }}">
-                        <button>Delete</button>
-                    </a>
+                    <a class="link_line" href="{{ url_for('delete_event', event_id=event.event_id) }}">Delete</a>
                     {% endif %}
                 </td>
             </tr>

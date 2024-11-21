@@ -30,7 +30,7 @@
           <input type="date" class="date-input" name="date_to" id="date_to" value="{{ date_to | default(default_date[:10]) }}" required>
         </label>
         <label class="field">
-          <button type="submit" id="addPostButton">Add</button>
+          <button class="form_button" type="submit" id="addPostButton">Add</button>
         </label>
       </form>
     </div>
@@ -58,7 +58,7 @@
         <label class="field">To:
           <input type="date" class="date-input" name="date_to" id="target_date_to" value="{{ date_to | default(default_date[:10]) }}" required>
         </label>
-        <button type="submit" id="editEventButton">Save</button>
+        <button class="form_button" type="submit" id="editEventButton">Save</button>
       </form>
   {% else %}
   <div class="group-layout">
@@ -84,15 +84,9 @@
     </form>
     <p>
       <a href="{{ url_for('event_list', group_id=event.group.group_id) }}">
-        Go Back to event list
+        Events
       </a>
     </p>
-    <p>
-      <a href="{{ url_for('events_on') }}">
-        Go Back to today's event
-      </a>
-    </p>
-
   {% endif %}
 </div>
 {% endblock %}

@@ -15,6 +15,7 @@ body{
   font-size: 16px;
   line-height: 1.4;
   height: 100%;
+  min-width: 350px;  
 }
 
 #wrapper{
@@ -268,10 +269,23 @@ ul {
 }
 /* Table formatting */
 
-table {
+.group-container table {
   width: 70%;
+  height: 100%;
   border-collapse: collapse;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
+}
+
+.group-container tbody {
+  background-color:rgb(236, 236, 221);
+  display: block;
+}
+.group-container tfoot {
+  display: block;
+  display: flex; /* Enable Flexbox */
+  align-items: center; /* Vertically center content */
+  justify-content: center; /* Horizontally center content (optional) */
+  text-align: center; /* Fallback for centering text */
 }
 
 form table {
@@ -284,6 +298,12 @@ form table {
   text-align: center;
   /* height: 50px; */
 }
+.big-screen {
+  display: none;
+}
+.group-layout .table-layout {
+  width: 100%;
+}
 .table-layout th, .table-layout td {
   border: 1px solid #ddd;
   padding: 8px;
@@ -294,6 +314,18 @@ form table {
   color: #333;
   font-weight: bold;
   overflow: hidden;
+}
+.table-column-td-width {
+  width: 20%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.table-column-td-width-title {
+  width: 40%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .table-layout tr:nth-child(even) {
@@ -341,7 +373,6 @@ a:hover {
   flex-flow: column wrap;
   width: 100%;
   justify-content:left;
-  padding: 0 10%;
 }
 
 .group-layout form{
@@ -352,30 +383,14 @@ a:hover {
   margin-bottom: 5px;
 }
 .group-container .group-form {
-  border: 1px solid #0f0c0d;
   text-align: left;
   max-width: 350px;
   min-height: fit-content;
 }
-.table-width-buttons {
-  max-width: fit-content;
-}
-.table-column-td-width {
-  width: 20%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.table-column-td-width-title {
-  width: 50%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.group-container .group-form table {
+  border: 1px solid #0f0c0d;
 }
 
-.table-column-td-width-fit {
-  width: auto;
-}
 .context-overflow {
   width: 350px;           /* Set the desired width */
   overflow-wrap: anywhere;
@@ -388,7 +403,30 @@ a:hover {
   -webkit-line-clamp: 3;  /* Limit to 3 lines */
 }
 
+.link_line {
+  display: flex;
+  gap: 20px; 
+  align-items: center; 
+}
+
+.link_line a {
+  text-decoration: none; 
+  color: blue; 
+}
+
+.link_line a:hover {
+  color: darkblue; 
+}
+
+.link_forcus {
+  font-weight: bold;
+}
+.table-layout {
+  table-layout: fixed;
+}
+
 @media (min-width: 992px) {
+
   #wrapper {
       padding: 0 0;
       font-size: 18px;
@@ -468,17 +506,15 @@ a:hover {
     justify-content:center;
     gap: 1rem;
   }
-  .group-container {
-    border: 1px solid #0f0c0d;
+  .group-layout .table-layout {
+    width: 80%;
   }
+
   .group-container .group-form {
     text-align: center;
     width: 350px;
     height: 200px;
     border: none;
-  }
-  .table-width-buttons {
-    max-width: fit-content;
   }
 
   .context-overflow {
@@ -491,5 +527,33 @@ a:hover {
     display: -webkit-box;   /* Required for limiting lines with WebKit */
     -webkit-box-orient: vertical; /* Required for limiting lines with WebKit */
     -webkit-line-clamp: 3;  /* Limit to 3 lines */
+  }
+  .group-container table {
+    margin-bottom: 20px;
+  }
+  
+  .group-container thead, tfoot {
+    display: table; /* Keep these as table elements */
+    width: 100%; /* Required for proper table layout */
+  }
+  .group-container tbody {
+    background-color:rgb(236, 236, 221);
+    display: block;
+    height: 80%; /* Assign 80% height */
+  }
+  
+  .group-container tfoot {
+    display: block;
+    height: 20%; /* Assign 20% height */
+    display: flex; /* Enable Flexbox */
+    align-items: center; /* Vertically center content */
+    justify-content: center; /* Horizontally center content (optional) */
+    text-align: center; /* Fallback for centering text */
+  }
+  .big-screen {
+    display: block;
+  }
+  .table-layout td {
+    align-content: center;
   }
 }
