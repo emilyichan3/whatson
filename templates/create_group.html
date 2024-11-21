@@ -4,13 +4,13 @@
     <div class="group-layout">
         <form action="{{ url_for('create_group') }}" method="POST">
             <label class="field">Name:
-                <input type="text" name="group_name" required>
+                <input type="text" maxlength="60" name="group_name" required>
             </label>
             <label class="field">Description:
-                <textarea type="text" name="description" required></textarea>
+                <textarea type="text" maxlength="250" name="description" required></textarea>
             </label>
             <label class="field">
-                <button type="submit">Create</button>
+                <button class="form_button" type="submit">Create</button>
             </label>
           </form>
     </div>

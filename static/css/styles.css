@@ -195,8 +195,7 @@ textarea.readonly {
   border: 1px solid #ccc;  
   cursor: not-allowed;     
 }
-
-button {
+.form_button {
   width: 80px;
   padding: 8px 15px;
   background-color: #007bff;
@@ -206,13 +205,41 @@ button {
   border-radius: 3px;
   transition: background-color 0.3s ease;
 }
-button:hover {
+.form_button:hover {
   background-color: #fd7e14;
+}
+
+.link_button {
+  width: 80px;
+  padding: 8px 15px;
+  background-color: #007bff;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
+}
+.link_button:hover {
+  background-color: #fd7e14;
+}
+.group-form a {
+  color: #0c0c0c;
+  text-decoration: none;
+  display: inline-block;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;    
+}
+.group-form a:hover {
+  text-decoration: underline;
 }
 .button-delete-confirm {
   width: 300px;
 }
+.menu-button {
+  cursor: pointer;
+}
 /* form styling end */
+
 /* Flash messages container */
 .flashes {
   display: block;
@@ -293,12 +320,12 @@ a:hover {
   display:grid;
   justify-content:left;
 }
-.display-layout {
+.input-layout  {
   display:grid;
   justify-content:left;
 }
 
-.display-layout h1,h2 {
+.input-layout  h1,h2 {
   display: grid;
   justify-content: left;
 }
@@ -308,29 +335,27 @@ a:hover {
     display:grid;
     justify-content: left;
 }
-/* .main-layout {
-  display: flex;
-  flex-flow: column wrap;
-  width: 100%;
-  justify-content:left
-} */
+
 .group-layout {
   display: flex;
   flex-flow: column wrap;
   width: 100%;
   justify-content:left;
-  /* gap: 1rem; */
+  padding: 0 10%;
 }
 
 .group-layout form{
   width: 100%;
 }
-
+.group-container {
+  border: none;
+  margin-bottom: 5px;
+}
 .group-container .group-form {
-  text-align: left;
-  width: 350px;
-  min-height: fit-content;
   border: 1px solid #0f0c0d;
+  text-align: left;
+  max-width: 350px;
+  min-height: fit-content;
 }
 .table-width-buttons {
   max-width: fit-content;
@@ -423,12 +448,12 @@ a:hover {
   #big-menu a:hover {
       text-decoration: underline;
   }
-  .display-layout {
+  .input-layout {
     display:grid;
     justify-content:center;
   }
   
-  .display-layout h1,h2 {
+  .input-layout h1,h2 {
     display: grid;
     justify-content: center;
   }
@@ -443,20 +468,19 @@ a:hover {
     justify-content:center;
     gap: 1rem;
   }
-  
+  .group-container {
+    border: 1px solid #0f0c0d;
+  }
   .group-container .group-form {
     text-align: center;
     width: 350px;
-    min-height: fit-content;
-    border: 1px solid #0f0c0d;
+    height: 200px;
+    border: none;
   }
   .table-width-buttons {
     max-width: fit-content;
   }
-  /* .context-overflow {
-    width: 350px;
-    overflow-wrap: anywhere;
-  } */
+
   .context-overflow {
     width: 350px;           /* Set the desired width */
     overflow-wrap: anywhere;

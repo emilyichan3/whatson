@@ -1,13 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="display-layout">
     <div class="input-layout">
         <form action="{{ url_for('logout_action') }}" method="POST">
             <h5>Are you sure you want to log out?</h5>
-            <button class="btn btn-primary" type="submit">Logout</button>
+            <button class="form_button" type="submit">Logout</button>
         </form>
     </div>
-</div>
-
 {% endblock %}

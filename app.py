@@ -3,6 +3,7 @@ from flask import Flask, flash, render_template, redirect, request, url_for
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from models import User, Group, Event, db
 from sqlalchemy.sql import text
+import validation as validation
 
 app = Flask(__name__)
 app.config.from_object('config')  # Load configuration from config.py
@@ -64,16 +65,25 @@ def register_action():
         flash(f"The username '{username}' is already taken")
         return redirect(url_for("register_page"))
 
-    is_organizer = True if request.form.get('is_organizer') else False
-    print(request.form.get("is_organizer"))
-    user = User(username=username, is_organizer=is_organizer)
+    if validation.validate_input(validation.User_Validation, 'username',username):
+        if User.query.filter_by(username=username).first():
+            flash(f"The username '{username}' is already taken")
+            return redirect(url_for("register_page"))
 
-    db.session.add(user)
-    db.session.commit()
+        is_organizer = True if request.form.get('is_organizer') else False
+        print(request.form.get("is_organizer"))
+        user = User(username=username, is_organizer=is_organizer)
 
-    login_user(user)
-    flash(f"Welcome {username}!")
-    return redirect(url_for("index"))
+        db.session.add(user)
+        db.session.commit()
+
+        login_user(user)
+        flash(f"Welcome {username}!")
+        return redirect(url_for("index"))
+    else:
+        flash("The max length of username is 20 characters")
+        return redirect(url_for("register_page"))
+
 
 
 @app.route("/logout", methods=["GET"])
@@ -99,9 +109,6 @@ def event_list(group_id):
 @app.route("/events_on", methods=['GET'])
 def events_on():
     formatted_today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-    # events = Event.query.from_statement(
-    #     text("SELECT * FROM events WHERE group_id = :group_id order by date_fm desc")
-    # ).params(group_id=group_id).all()
     events = Event.query.from_statement(
         text("SELECT * FROM events WHERE date_fm = :start_date order by date_fm desc")
     ).params(start_date=formatted_today).all()
@@ -122,7 +129,7 @@ def add_event(group_id):
             date_from = datetime.strptime(request.form['date_from'], '%Y-%m-%d')
             date_to = datetime.strptime(request.form['date_to'], '%Y-%m-%d')    
              # Validate that the date from is not later than the date to
-            if is_date_from_earlier_date_to(date_from, date_to):
+            if validation.is_date_from_earlier_date_to(date_from, date_to):
                 # Add the new post to the database
                 db.session.add(Event(title=title, 
                                     context=context, 
@@ -180,7 +187,7 @@ def edit_event(event_id):
             event.date_fm = datetime.strptime(request.form['date_from'], '%Y-%m-%d')
             event.date_to = datetime.strptime(request.form['date_to'], '%Y-%m-%d')
             # Validate that the date from is not later than the date to
-            if is_date_from_earlier_date_to(event.date_fm, event.date_to):
+            if validation.is_date_from_earlier_date_to(event.date_fm, event.date_to):
                 db.session.commit()
                 return redirect(url_for('event_list',  group_id=group_id))
             else:
@@ -236,7 +243,7 @@ def view_event(event_id):
 @login_required
 def create_group():
     if request.method == 'POST':
-        group_name = request.form['group_name']
+        group_name = request.form['group_name']          
         description = request.form['description']
         db.session.add(Group(group_name=group_name, 
                              description=description, 
@@ -259,13 +266,10 @@ def edit_group(group_id):
     return render_template('edit_group.html', group=group)
 
 @app.route('/view_group/<int:group_id>',  methods=['GET'])
-@login_required
 def view_group(group_id):
     group = Group.query.get_or_404(group_id)
     return render_template('view_group.html', group=group)
 
-def is_date_from_earlier_date_to(date_from, date_to):
-    return date_from <= date_to
 
 
 if __name__ == "__main__":
