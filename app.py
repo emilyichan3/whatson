@@ -110,7 +110,7 @@ def event_list(group_id):
 def events_on():
     formatted_today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     events = Event.query.from_statement(
-        text("SELECT * FROM events WHERE date_fm = :start_date order by date_fm desc")
+        text("SELECT * FROM events WHERE date_fm <= :start_date AND date_to >=:start_date order by date_fm desc")
     ).params(start_date=formatted_today).all()
 
     return render_template("event_list_on.html", events=events)
