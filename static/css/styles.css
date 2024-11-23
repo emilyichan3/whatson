@@ -1,7 +1,7 @@
 :root {
-  --wrap-bg-color: #fff;
-  --nav-bg-color: #f3e5e5;
-  --main-bg-color: #fff;
+  --wrap-bg-color: ##f8f8f8;
+  --nav-bg-color: #0730417e;
+  --main-bg-color: ##f8f8f8;
 }
 
 * {
@@ -30,14 +30,15 @@ body{
 }
 
 .container img{
-  width: 50px;
-  height: 50px;
-  margin: 10px;
+  width: 140px;
+  height: 140px;
+  margin: 5px;
 }
 
 .header-content {
-  height: 70px;
   margin: 10px;
+  display: flex;
+  align-items: center;
 }
 
 .top-navigation {
@@ -94,7 +95,8 @@ body{
 }
 
 #menu-list a {
-  color: #0c0c0c;
+  color: #ececec;
+  font-weight: bold;
   text-decoration: none;
   display: inline-block;
   padding-top: 0.2em;
@@ -115,8 +117,16 @@ body{
 
 #big-menu {
   display: none;
-  font-weight: lighter;
+
 }
+#big-menu ul li a {
+  color: #ececec;
+  font-weight: bold;
+}
+#big-menu a:hover {
+  text-decoration: underline;
+}
+
 
 header{      
   color: #333;
@@ -187,15 +197,17 @@ input.readonly {
     background-color: #f0f0f0; 
     color: #666;            
     border: 1px solid #ccc;  
-    cursor: not-allowed;     
+    cursor:auto;     
 }
 
 textarea.readonly {
   background-color: #f0f0f0; 
   color: #666;            
   border: 1px solid #ccc;  
-  cursor: not-allowed;     
+  cursor: auto;     
+  pointer-events: none;
 }
+
 .form_button {
   width: 80px;
   padding: 8px 15px;
@@ -269,6 +281,9 @@ ul {
 }
 /* Table formatting */
 
+.group-container {
+  box-shadow: 0 0 10px rgb(0, 0, 0, 0.2);
+}
 .group-container table {
   width: 70%;
   height: 100%;
@@ -277,10 +292,11 @@ ul {
 }
 
 .group-container tbody {
-  background-color:rgb(236, 236, 221);
+  background-color: #fff;
   display: block;
 }
 .group-container tfoot {
+  background-color: #fcfbeb;
   display: block;
   display: flex; /* Enable Flexbox */
   align-items: center; /* Vertically center content */
@@ -348,10 +364,13 @@ a:hover {
 .hidden {
   display: none;
 }
+
 .user-layout {
   display:grid;
-  justify-content:left;
+  justify-content:center;
+  padding-bottom: 10px;
 }
+
 .input-layout  {
   display:grid;
   justify-content:left;
@@ -370,10 +389,12 @@ a:hover {
 
 .group-layout {
   display: flex;
-  flex-flow: column wrap;
+  flex-flow: row wrap;
   width: 100%;
-  justify-content:left;
+  justify-content:center;
+  gap: 1rem;
 }
+
 
 .group-layout form{
   width: 100%;
@@ -388,7 +409,7 @@ a:hover {
   min-height: fit-content;
 }
 .group-container .group-form table {
-  border: 1px solid #0f0c0d;
+  border-radius: 3px;
 }
 
 .context-overflow {
@@ -425,8 +446,102 @@ a:hover {
   table-layout: fixed;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 650px) {
 
+  #wrapper {
+      padding: 0 0;
+      font-size: 18px;
+  }
+  main {
+      margin: 0;
+  }
+
+  .main-content {
+      border-top: 1px solid #0f0c0d;
+  }
+  
+  #small-menu {
+    display: block;
+  }
+  #menubar {
+    display: block;
+  }
+
+  #big-menu {
+    display: none;
+  }
+
+  .input-layout {
+    display:grid;
+    justify-content:center;
+  }
+  
+  .input-layout h1,h2 {
+    display: grid;
+    justify-content: center;
+  }
+  .user-layout {
+    display:grid;
+    justify-content:center;
+  }
+  .group-layout {
+    display: flex;
+    flex-flow: row wrap;
+    width: 100%;
+    justify-content:center;
+    gap: 1rem;
+  }
+  .group-layout .table-layout {
+    width: 80%;
+  }
+
+  .group-container .group-form {
+    text-align: center;
+    width: 350px;
+    height: 200px;
+    border: none;
+  }
+
+  .context-overflow {
+    width: 350px;           /* Set the desired width */
+    overflow-wrap: anywhere;
+    line-height: 1.5em;     /* Set the line height (e.g., 1.5 times the font size) */
+    max-height: 4.5em;      /* Limit the height to 3 lines (line-height * 3) */
+    overflow: hidden;       /* Hide the overflowing content */
+    text-overflow: ellipsis; /* Optional: Add ellipsis for truncated text */
+    display: -webkit-box;   /* Required for limiting lines with WebKit */
+    -webkit-box-orient: vertical; /* Required for limiting lines with WebKit */
+    -webkit-line-clamp: 3;  /* Limit to 3 lines */
+  }
+  .group-container table {
+    margin-bottom: 20px;
+  }
+  
+  .group-container thead, tfoot {
+    display: table; /* Keep these as table elements */
+    width: 100%; /* Required for proper table layout */
+  }
+  .group-container tbody {
+    /* background-color:rgb(236, 236, 221); */
+    display: block;
+    height: 80%; /* Assign 80% height */
+  }
+  
+  .group-container tfoot {
+    display: block;
+    height: 20%; /* Assign 20% height */
+    display: flex; /* Enable Flexbox */
+    align-items: center; /* Vertically center content */
+    justify-content: center; /* Horizontally center content (optional) */
+    text-align: center; /* Fallback for centering text */
+  }
+  .big-screen {
+    display:  table-cell;
+  }
+}
+
+
+@media (min-width: 992px) {
   #wrapper {
       padding: 0 0;
       font-size: 18px;
@@ -537,7 +652,7 @@ a:hover {
     width: 100%; /* Required for proper table layout */
   }
   .group-container tbody {
-    background-color:rgb(236, 236, 221);
+    /* background-color:rgb(236, 236, 221); */
     display: block;
     height: 80%; /* Assign 80% height */
   }
@@ -551,9 +666,6 @@ a:hover {
     text-align: center; /* Fallback for centering text */
   }
   .big-screen {
-    display: block;
-  }
-  .table-layout td {
-    align-content: center;
+    display:  table-cell;
   }
 }

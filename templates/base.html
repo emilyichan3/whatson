@@ -16,7 +16,7 @@
     <div class="header-container">
       <header class="top-navigation">
         <div class="container">
-          <img src="/static/images/whatson.png" alt="What's On">
+          <img src="/static/images/skeleton.png" alt="What's On">
           <div class="header-content">
               <h1>What's On</h1>
               <p id="username">{% if session['username'] %} Welcome {{ session['username'] }} {% endif %}</p>
@@ -33,7 +33,7 @@
           <div id="big-menu">
             <ul>
               <li><a href="{{ url_for('index') }}">Home</a></li>
-              <li><a href="{{ url_for('events_on') }}">Events on today</a></li>
+              <li><a href="{{ url_for('events_on') }}">Events on Today</a></li>
               {% if current_user.is_authenticated %}
                 <li><a href="{{ url_for('logout_page') }}">Logout</a></li>
               {% else %}
@@ -45,7 +45,7 @@
           <div id="small-menu">
             <ul id="menu-list">
               <li><a href="{{ url_for('index') }}">Home</a></li>
-              <li><a href="{{ url_for('events_on') }}">Events on today</a></li>
+              <li><a href="{{ url_for('events_on') }}">Events on Today</a></li>
               {% if current_user.is_authenticated %}
                 <li><a href="{{ url_for('logout_page') }}">Logout</a></li>
               {% else %}
