@@ -33,7 +33,7 @@ class Group(db.Model):
     created_at = db.mapped_column(db.DateTime, default=datetime.utcnow)
 
     create_user = db.relationship('User', back_populates='groups')
-    events = db.relationship('Event', back_populates='group')
+    events = db.relationship('Event', back_populates='group', lazy='dynamic')
 
     def __repr__(self):
         return f'"Group <group_name={self.group_name}, is_active= {self.is_active}, create_at ({self.created_at:%Y-%m-%d}>)'

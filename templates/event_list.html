@@ -20,7 +20,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for event in group.events %}
+            {% for event in events %}
             <tr>
                 <td class="table-column-td-width-title">{{ event.title }}</td>
                 <td class="table-column-td-width">{{ event.location }}</td>
@@ -28,7 +28,7 @@
                 <td class="big-screen">{{ event.date_to.strftime('%Y-%m-%d') }}</td>
                 <td>
                     <a class="link_line" href="{{ url_for('view_event', event_id=event.event_id) }}">View</a>
-                    {% if user == event.editor or user == group.create_user %}
+                    {% if user == event.editor or user == event.group.create_user %}
                     <!-- Edit Button -->
                     <a class="link_line" href="{{ url_for('edit_event', event_id=event.event_id) }}">Edit</a>
                     <!-- Delete Button -->

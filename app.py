@@ -3,6 +3,7 @@ from flask import Flask, flash, render_template, redirect, request, url_for
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from models import User, Group, Event, db
 from sqlalchemy.sql import text
+from sqlalchemy import and_
 import validation as validation
 
 app = Flask(__name__)
@@ -28,14 +29,10 @@ def login_page():
 @app.route("/login", methods=["POST"])
 def login_action():
     username = request.form["username"]
-    # password = request.form["password"]
     user = User.query.filter_by(username=username).first()
     if not user:
         flash(f"No such user '{username}'")
         return redirect(url_for("login_page"))
-    # if password != user.password:
-    #     flash(f"Invalid password for the user '{username}'")
-    #     return redirect(url_for("login_page"))
 
     login_user(user)
     flash(f"Welcome back, {username}!")
@@ -102,8 +99,15 @@ def logout_action():
 
 @app.route("/group_events/<int:group_id>", methods=['GET'])
 def event_list(group_id):
+    formatted_today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     group = Group.query.get_or_404(group_id)
-    return render_template("event_list.html", action='view', group=group, user=current_user)
+    events = group.events.filter(
+            and_(
+                Event.date_to >= formatted_today
+            )
+        ).order_by(Event.date_fm).all()
+    
+    return render_template("event_list.html", action='view', group=group, events=events, user=current_user)
 
 
 @app.route("/events_on", methods=['GET'])
@@ -176,7 +180,6 @@ def add_event(group_id):
 @login_required
 def edit_event(event_id):
     event = Event.query.get_or_404(event_id)
-    # formatted_date = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S")
     formatted_date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     if request.method == 'POST':
         try:
