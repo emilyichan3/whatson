@@ -23,6 +23,10 @@
                     <a class="link_line" href="{{ url_for('view_event', event_id=event.event_id) }}">View</a>
                 </td>
             </tr>
+            {% else %}
+            <tr>
+              <td colspan="5">No events</td>
+            </tr>
             {% endfor %}
         </tbody>
     </table>
