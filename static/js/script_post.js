@@ -1,4 +1,5 @@
 const setDateError = () => {
+    // below is adding error class in the input-date elements.
     const inputDateControls = document.querySelectorAll('input[type="date"]');
    
     inputDateControls.forEach((input) => {
@@ -13,13 +14,16 @@ function init(){
     // if there is a date-error shown on flashes container
     let flashMessages = document.getElementsByClassName('date-error');
     if (flashMessages.length > 0) {
+        // adding error class in the input-date elements.
         setDateError();
     }
         
     let action = document.getElementById('action').innerText; 
+    // using action to distinguish the elements in content 
     if (action === "add"){
-        const form = document.getElementById('addEventForm');
         // create an event
+        const form = document.getElementById('addEventForm');
+        
         let default_formattedDate = document.getElementById('default_date').innerText;
         let date_from = document.getElementById('date_from');
         let date_to = document.getElementById('date_to');
@@ -30,16 +34,10 @@ function init(){
         form.addEventListener('submit', function(event) {
             event.preventDefault();
             form.submit();
-            // // below code is for using javascript to check the dates
-            // if (!addEvent()) {
-            //     // added error class if the date is incorrect range.
-            //     setDateError();
-            //     return;
-            // }
         })
 
     } else {
-        // edit an event
+        // edit exist event
         const form = document.getElementById('editEventForm');
         let edit_date_from = document.getElementById('edit_date_fm').innerText;
         let edit_date_to = document.getElementById('edit_date_to').innerText;
@@ -50,12 +48,6 @@ function init(){
         form.addEventListener('submit', function(event) {
             event.preventDefault();
             form.submit();
-            // Using javascript to check the dates
-            // if (editEvent()) {
-            //     form.submit();
-            // } else {
-            //     alert("End date should not be earlier than the start date.");
-            // }
         })
     }
 }
@@ -72,35 +64,10 @@ function formattedDate(targetDate){
     return formattedDate;
 }
 
-function addEvent(){
-    let date_fm = document.getElementById('date_from').value;
-    let date_to = document.getElementById('date_to').value;
-    if (isStartDateEarlierEndDate(date_fm, date_to)) {
-        return true;
-        // Place any additional code you want to execute when date_from is NOT earlier than date_to here.
-      } else {
-        return false;
-        // Place any code here for when the dates are correctly ordered.
-      }
-}
-
-function editEvent() {
-    let date_fm = document.getElementById('target_date_fm').value;
-    let date_to = document.getElementById('target_date_to').value;
-    // Compare the date from with the date to
-    if (isStartDateEarlierEndDate(date_fm, date_to)) {
-        return true;
-        // Place any additional code you want to execute when date_from is NOT earlier than date_to here.
-    } else {
-        return false;
-        // Place any code here for when the dates are correctly ordered.
-    }
-}
-
 function isStartDateEarlierEndDate(dateFrom, dateTo) {
     const dateFromObj = new Date(dateFrom);
     const dateToObj = new Date(dateTo);
-    console.log("isDateFormEarlier");
+    
     if (dateFromObj.getTime() <= dateToObj.getTime()) 
     {
         return true; // dateFrom is earlier than dateTo

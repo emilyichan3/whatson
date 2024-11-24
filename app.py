@@ -101,6 +101,7 @@ def logout_action():
 def event_list(group_id):
     formatted_today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     group = Group.query.get_or_404(group_id)
+    # Using below code to filter all evenets in the group and only show all active events
     events = group.events.filter(
             and_(
                 Event.date_to >= formatted_today
@@ -112,6 +113,7 @@ def event_list(group_id):
 
 @app.route("/events_on", methods=['GET'])
 def events_on():
+    # Using raw SQL statement to filter all events happening today.
     formatted_today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     events = Event.query.from_statement(
         text("SELECT * FROM events WHERE date_fm <= :start_date AND date_to >=:start_date order by date_fm desc")
