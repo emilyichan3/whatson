@@ -1,7 +1,7 @@
 :root {
-  --wrap-bg-color: ##f8f8f8;
+  --wrap-bg-color: #f8f8f8;
   --nav-bg-color: #0730417e;
-  --main-bg-color: ##f8f8f8;
+  --main-bg-color: #f8f8f8;
 }
 
 * {
@@ -260,7 +260,12 @@ textarea.readonly {
   margin: auto auto 20px auto;
   pointer-events: none; /* Disable the hover effect */
 }
-
+.success {
+  border: none;
+}
+.error {
+  border: 2px solid #ff3860;
+}
 /* Flash message */
 ul {
   list-style: none;
@@ -275,7 +280,7 @@ ul {
   background-color: #a7ac1b;
 }
 
-.flashes .error {
+.flashes .date-error {
   color: red;
   background-color: yellow;
 }
@@ -385,7 +390,25 @@ a:hover {
     width: 100%;
     display:grid;
     justify-content: left;
+    text-align: left;
+    max-width: 350px;
+    min-height: fit-content;
 }
+
+.input-layout .field {
+  grid-column: span 2;
+  display: grid;
+  grid: inherit;
+  grid-template-columns: fit-content 1fr;
+  gap: 1em;
+}
+.input-layout .field-button {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center;    /* Center vertically */
+  gap: 1em; /* Keep the spacing if you have multiple items */
+}
+
 
 .group-layout {
   display: flex;

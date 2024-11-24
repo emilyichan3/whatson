@@ -18,7 +18,7 @@
                         <td class="link_forcus"><a href="{{ url_for('view_group', group_id=group.group_id) }}">{{ group.group_name }}</a></td>
                     </tr>
                     <tr>
-                        <td class="context-overflow">{{ group.create_user.username }}</td>
+                        <td class="context-overflow">Organizer: {{ group.create_user.username }}</td>
                     </tr>
                     <tr>
                         <td class="context-overflow">{{ group.description }}</td>

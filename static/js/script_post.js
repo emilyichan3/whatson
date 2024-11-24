@@ -1,4 +1,21 @@
+const setDateError = () => {
+    const inputDateControls = document.querySelectorAll('input[type="date"]');
+   
+    inputDateControls.forEach((input) => {
+        console.log(input);
+        input.classList.add('error');
+        input.classList.remove('success');
+    });
+};
+
+
 function init(){
+    // if there is a date-error shown on flashes container
+    let flashMessages = document.getElementsByClassName('date-error');
+    if (flashMessages.length > 0) {
+        setDateError();
+    }
+        
     let action = document.getElementById('action').innerText; 
     if (action === "add"){
         const form = document.getElementById('addEventForm');
@@ -13,11 +30,11 @@ function init(){
         form.addEventListener('submit', function(event) {
             event.preventDefault();
             form.submit();
-            // Using javascript to check the dates
-            // if (addEvent()) {
-            //     form.submit();
-            // } else {
-            //     alert("End date should not be earlier than the start date.");
+            // // below code is for using javascript to check the dates
+            // if (!addEvent()) {
+            //     // added error class if the date is incorrect range.
+            //     setDateError();
+            //     return;
             // }
         })
 

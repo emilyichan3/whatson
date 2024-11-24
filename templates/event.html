@@ -20,7 +20,7 @@
             <textarea name="context" id="context" maxlength="250" required>{{ context | default('') }}</textarea>
         </label>
         <label class="field">Location:
-          <input type="text" name="location" maxlength="200" id="location" >{{ location | default('') }}
+          <input type="text" name="location" maxlength="200" id="location" value="{{ location | default('') }}" >
         </label>
         <p class="hidden" id="default_date">{{ default_date }}</p>
         <label class="field">From:
@@ -48,7 +48,7 @@
           <textarea name="context" id="context" maxlength="250" required>{{ event.context | default('') }}</textarea>
         </label>
         <label class="field">Location:
-          <input type="text" name="location" maxlength="200" id="location" >{{ location | default('') }}
+          <input type="text" name="location" maxlength="200" id="location" value="{{ event.location | default('') }}" >
         </label>
         <p class="hidden" id="edit_date_fm">{{ event.date_fm.strftime("%Y-%m-%dT%H:%M:%S") }}</p>
         <p class="hidden" id="edit_date_to">{{ event.date_to.strftime("%Y-%m-%dT%H:%M:%S") }}</p>
@@ -60,6 +60,7 @@
         </label>
         <button class="form_button" type="submit" id="editEventButton">Save</button>
       </form>
+  </div>
   {% else %}
   <div class="group-layout">
     <form id="viewEventForm">
@@ -87,6 +88,6 @@
         Events
       </a>
     </p>
+  </div>
   {% endif %}
-</div>
 {% endblock %}

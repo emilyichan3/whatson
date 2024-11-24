@@ -146,7 +146,7 @@ def add_event(group_id):
                 return redirect(url_for('event_list',  group_id=group_id))
             else:
                 # Flash message and re-render the page with the entered data
-                flash("End date should not be earlier than the start date.", "error")
+                flash("End date should not be earlier than the start date.", "date-error")
                 return render_template(
                     'event.html',
                     action='add',
@@ -160,7 +160,7 @@ def add_event(group_id):
                 )
         except ValueError:
            # Flash an error message for invalid date input
-            flash("Invalid date format. Please use YYYY-MM-DD.", "error")
+            flash("Invalid date format. Please use YYYY-MM-DD.", "date-error")
             return render_template(
                 'event.html',
                 action='add',
@@ -195,7 +195,7 @@ def edit_event(event_id):
                 return redirect(url_for('event_list',  group_id=group_id))
             else:
                 # Flash message and re-render the page with the entered data
-                flash("End date should not be earlier than the start date.", "error")
+                flash("End date should not be earlier than the start date.", "date-error")
                 return render_template(
                     'event.html',
                     action='edit',
@@ -209,7 +209,7 @@ def edit_event(event_id):
                 )
         except ValueError:
            # Flash an error message for invalid date input
-            flash("Invalid date format. Please use YYYY-MM-DD.", "error")
+            flash("Invalid date format. Please use YYYY-MM-DD.", "date-error")
             return render_template(
                 'event.html',
                 action='edit',
