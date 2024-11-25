@@ -54,7 +54,7 @@ body{
   align-items: center; 
   justify-content: center; 
   color: rgb(4, 56, 90); 
-  font-size: 2rem;
+  font-size: 1.5rem;
 } 
 .top-navigation .container {
   display: flex;
