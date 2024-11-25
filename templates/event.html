@@ -84,8 +84,13 @@
       </label>
     </form>
     <p>
+      <a href="{{ url_for('events_on') }}">
+        Events on Today
+      </a>
+    </p>
+    <p>
       <a href="{{ url_for('event_list', group_id=event.group.group_id) }}">
-        Events
+        Events in {{ event.group.group_name }}
       </a>
     </p>
   </div>

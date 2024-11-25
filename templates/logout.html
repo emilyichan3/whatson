@@ -2,9 +2,13 @@
 
 {% block content %}
     <div class="input-layout">
-        <form action="{{ url_for('logout_action') }}" method="POST">
-            <h5>Are you sure you want to log out?</h5>
-            <button class="form_button" type="submit">Logout</button>
-        </form>
+        <div class="classic">
+            <form action="{{ url_for('logout_action') }}" method="POST">
+              <label class="field">Are you sure you want to log out? </label>
+              <div class="field-button">
+                <button class="form_button" type="submit">Logout</button>
+              </div>
+            </form>
+        </div>
     </div>
 {% endblock %}
