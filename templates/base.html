@@ -17,10 +17,10 @@
     <div class="header-container">
       <header class="top-navigation">
         <div class="container">
-          <img src="/static/images/skeleton.png" alt="What's On">
+          <img src="/static/images/whaton.png" alt="What's On">
           <div class="header-content">
               <h1>What's On</h1>
-              <p id="username">{% if session['username'] %} Welcome {{ session['username'] }} {% endif %}</p>
+              <p id="username">{% if current_user.is_authenticated %} Welcome {{ current_user.username }} {% endif %}</p>
           </div>
           <button class="menu-button" type="button" id="menubar" onclick="menuBar()">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
