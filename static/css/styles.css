@@ -293,7 +293,7 @@ ul {
   margin-bottom: 10px;
   border-radius: 3px;
   color: #300505;
-  background-color: #a7ac1b;
+  background-color: rgb(235, 235, 235);
 }
 
 .flashes .date-error {
@@ -416,6 +416,7 @@ a:hover {
 .input-layout  h1,h2 {
   display: grid;
   justify-content: left;
+  padding-bottom: 20px;
 }
 
 .input-layout form{

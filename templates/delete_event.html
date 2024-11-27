@@ -3,7 +3,7 @@
   <div class="input-layout">
     <div class="classic">
       <form action="{{ url_for('delete_event', event_id=event.event_id) }}" method="POST">
-        <label class="field">Are you sure you want to log out? </label>
+        <label>Are you sure you want to delete {{ event.title }} event? </label>
         <div class="field-button">
           <button class="form_button" type="submit">Delete</button>
         </div>
