@@ -12,7 +12,8 @@
     <table class="table-layout">
         <thead>
             <tr>
-                <th colspan="2">Group: {{ group.group_name }}</th>
+                <th colspan="4">Group: {{ group.group_name }}</th>
+                <th colspan="5">Group: {{ group.group_name }}</th>
             </tr>
             <tr>
                 <th class="table-column-td-width-title">Upcoming Events</th>
@@ -41,7 +42,8 @@
             </tr>
             {% else %}
             <tr>
-              <td colspan="5">No events</td>
+                <td colspan="4" >No events</td>
+                <td colspan="5" >No events</td>
             </tr>
             {% endfor %}
         </tbody>

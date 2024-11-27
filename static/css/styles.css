@@ -338,6 +338,7 @@ form table {
 .big-screen {
   display: none;
 }
+
 .group-layout .table-layout {
   width: 100%;
 }
@@ -371,6 +372,21 @@ form table {
 
 .table-layout tr:hover {
   background-color: #f1f1f1;
+}
+
+/* control the columns shown in the small screen */
+/* display colspan=4 and hide colspan=5 */
+.table-layout th[colspan="4"] {
+  display: table-cell;
+}
+.table-layout td[colspan="4"] {
+  display: table-cell;
+}
+.table-layout th[colspan="5"] {
+  display: none;
+}
+.table-layout td[colspan="5"] {
+  display: none;
 }
 
 a {
@@ -577,6 +593,20 @@ a:hover {
   .big-screen {
     display:  table-cell;
   }
+  .table-layout th[colspan="5"] {
+    display: table-cell;
+  }
+  
+  .table-layout td[colspan="5"] {
+    display: table-cell;
+  }
+  .table-layout th[colspan="4"] {
+    display: none;
+  }
+  
+  .table-layout td[colspan="4"] {
+    display: none;
+  }
 }
 
 
@@ -706,5 +736,19 @@ a:hover {
   }
   .big-screen {
     display:  table-cell;
+  }
+  .table-layout th[colspan="5"] {
+    display: table-cell;
+  }
+  
+  .table-layout td[colspan="5"] {
+    display: table-cell;
+  }
+  .table-layout th[colspan="4"] {
+    display: none;
+  }
+  
+  .table-layout td[colspan="4"] {
+    display: none;
   }
 }
