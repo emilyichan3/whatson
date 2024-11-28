@@ -202,13 +202,13 @@ form {
 input {
   height: 2em;
   font-family: "Montserrat","Helvetica Neue",Helvetica,Arial,sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.2;
 }
 textarea {
   height: 10em;
   font-family: "Montserrat","Helvetica Neue",Helvetica,Arial,sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.2;
 }
 .date-input {

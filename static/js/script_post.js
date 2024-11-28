@@ -36,7 +36,7 @@ function init(){
             form.submit();
         })
 
-    } else {
+    } else if (action === "edit") {
         // edit exist event
         const form = document.getElementById('editEventForm');
         let edit_date_from = document.getElementById('edit_date_fm').innerText;
@@ -49,6 +49,14 @@ function init(){
             event.preventDefault();
             form.submit();
         })
+    } else {
+        const form = document.getElementById('editEventForm');
+        let edit_date_from = document.getElementById('edit_date_fm').innerText;
+        let edit_date_to = document.getElementById('edit_date_to').innerText;
+        let target_date_fm = document.getElementById('target_date_fm');
+        let target_date_to = document.getElementById('target_date_to');
+        target_date_fm.value = formattedDate(edit_date_from);
+        target_date_to.value = formattedDate(edit_date_to);
     }
 }
 
