@@ -65,7 +65,7 @@ body{
   margin: 0;
 } 
 #small-menu {
-  position: block;
+  position:relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -438,7 +438,7 @@ a:hover {
   grid-column: span 2;
   display: grid;
   grid: inherit;
-  grid-template-columns: fit-content 1fr;
+  grid-template-columns:min-content 1fr;
   gap: 1em;
 }
 .input-layout .field-button {
