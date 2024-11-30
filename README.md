@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 Project's Concept:
 > Organzier can add events in a group to share information. All users can view the upcoming events. 
 > 
@@ -21,6 +20,3 @@ User stories:
 Website Link:
 > https://whatson-qu2h.onrender.com
 > 
-=======
-
->>>>>>> 8c0bbebe1a4860b97fc584b09029bac6436b461b
