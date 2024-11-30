@@ -13,13 +13,14 @@
         <thead>
             <tr>
                 <th colspan="4">Group: {{ group.group_name }}</th>
-                <th colspan="5">Group: {{ group.group_name }}</th>
+                <th colspan="6">Group: {{ group.group_name }}</th>
             </tr>
             <tr>
                 <th class="table-column-td-width-title">Upcoming Events</th>
                 <th class="table-column-td-width">Location</th>
                 <th>From</th>
                 <th class="big-screen">To</th>
+                <th class="big-screen">Organizer</th>
                 <th></th>
             </tr>
         </thead>
@@ -30,6 +31,7 @@
                 <td class="table-column-td-width">{{ event.location }}</td>
                 <td>{{ event.date_fm.strftime('%Y-%m-%d') }}</td>
                 <td class="big-screen">{{ event.date_to.strftime('%Y-%m-%d') }}</td>
+                <td class="big-screen">{{ event.editor.username }}</td>
                 <td>
                     <a class="link_line" href="{{ url_for('view_event', event_id=event.event_id) }}">View</a>
                     {% if user == event.editor or user == event.group.create_user %}
@@ -43,7 +45,7 @@
             {% else %}
             <tr>
                 <td colspan="4" >No events</td>
-                <td colspan="5" >No events</td>
+                <td colspan="6" >No events</td>
             </tr>
             {% endfor %}
         </tbody>

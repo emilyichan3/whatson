@@ -381,7 +381,7 @@ form table {
 }
 
 /* control the columns shown in the small screen */
-/* display colspan=4 and hide colspan=5 */
+/* display colspan=4 and hide colspan=5/6 */
 .table-layout th[colspan="4"] {
   display: table-cell;
 }
@@ -392,6 +392,12 @@ form table {
   display: none;
 }
 .table-layout td[colspan="5"] {
+  display: none;
+}
+.table-layout th[colspan="6"] {
+  display: none;
+}
+.table-layout td[colspan="6"] {
   display: none;
 }
 
@@ -597,20 +603,26 @@ a:hover {
     justify-content: center; /* Horizontally center content (optional) */
     text-align: center; /* Fallback for centering text */
   }
+  /* control the columns shown in the big screen */
+  /* hide colspan=4 and display colspan=5/6 */
   .big-screen {
     display:  table-cell;
   }
-  .table-layout th[colspan="5"] {
+  .table-layout th[colspan="6"] {
     display: table-cell;
   }
-  
+  .table-layout td[colspan="6"] {
+    display: table-cell;
+  }
+  .table-layout th[colspan="5"] {
+    display: table-cell;
+  }  
   .table-layout td[colspan="5"] {
     display: table-cell;
   }
   .table-layout th[colspan="4"] {
     display: none;
   }
-  
   .table-layout td[colspan="4"] {
     display: none;
   }
@@ -741,13 +753,20 @@ a:hover {
     justify-content: center; /* Horizontally center content (optional) */
     text-align: center; /* Fallback for centering text */
   }
+  /* control the columns shown in the big screen */
+  /* hide colspan=4 and display colspan=5/6 */
   .big-screen {
     display:  table-cell;
+  }
+  .table-layout th[colspan="6"] {
+    display: table-cell;
+  }
+  .table-layout td[colspan="6"] {
+    display: table-cell;
   }
   .table-layout th[colspan="5"] {
     display: table-cell;
   }
-  
   .table-layout td[colspan="5"] {
     display: table-cell;
   }

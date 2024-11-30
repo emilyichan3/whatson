@@ -67,6 +67,9 @@
       <label class="field">Group:
         <input type="text" class="readonly" name="group"  value="{{ event.group.group_name | default('') }}" readonly>
     </label>
+    <label class="field">Post by:
+      <input type="text" class="readonly" name="organizer"  value="{{ event.editor.username | default('') }}" readonly>
+  </label>
       <label class="field">Title:
         <input type="text" class="readonly" name="title" id="title" value="{{ event.title | default('') }}" readonly>
       </label>
